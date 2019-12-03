@@ -9,42 +9,51 @@ import java.net.URL;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class schedule {
+public class crawlingFunction {
 	
 	private static int totalList;
 	
-	//ÃÖÁ¾ ¿Ï¼ºµÉ JSONObject ¼±¾ğ(ÀüÃ¼)
 	static JSONObject jsonObject = new JSONObject();
 
-    //personÀÇ JSONÁ¤º¸¸¦ ´ãÀ» Array ¼±¾ğ
+	static JSONObject lectureInfo = new JSONObject();
+
     static JSONArray jsonArray = new JSONArray();
 
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//		
-//		int listNo = 1;
-//		
-//		totalList = pageInit();
-//		
-//		System.out.println("TOTAL LIST -> "+totalList);	
-//		
-//		while(listNo < totalList) {
-//			schoolCrawling(listNo);
-//			listNo += 10;
-//		}
-//		schoolCrawling(listNo);
-//		
-//		//JSONObject¸¦ String °´Ã¼¿¡ ÇÒ´ç
+    
+	@SuppressWarnings("unchecked")
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int pageNo = 1;
+		String SCH_ORG_SECT = "G";
+		
+		totalList = pageInit(SCH_ORG_SECT);
+		System.out.println("TOTAL LIST -> "+ totalList);	
+		
+		lectureInfo.put("lectureInfo", "í•œêµ­ì‚°ì—…ê¸°ìˆ ëŒ€í•™êµ ê°•ì˜ ì •ë³´");
+		lectureInfo.put("made", "ì´íƒœì›…");
+		lectureInfo.put("totalList", totalList);
+		
+		while(pageNo <= totalList) {
+			jsonArray = schoolCrawling(pageNo, SCH_ORG_SECT);
+			jsonObject.put("lectureList", jsonArray);
+			pageNo = pageNo + 10;
+			lectureInfo = new JSONObject();
+			lectureInfo.put("dataSize", jsonArray.size());
+		}
+		
+		System.out.println("Arraysize: "+ jsonArray.size());
+		System.out.println("jsonObject: "+ jsonObject);
+		
+		
 //        String jsonInfo = jsonObject.toJSONString();
-// 
 //        System.out.println(jsonInfo);
-//		
-//	}
+		
+	}
 
-	public static int pageInit() {
-
+	public static int pageInit(String SCH_ORG_SECT) {
 		try {
-			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl");
+			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl?SCH_ORG_SECT="+SCH_ORG_SECT);
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
 			
@@ -71,12 +80,11 @@ public class schedule {
 		return totalList;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public JSONObject schoolCrawling(int listNo) {
-		JSONObject scheduleInfo = new JSONObject();
+	@SuppressWarnings({ "unchecked", "unused" })
+	public static JSONArray schoolCrawling(int pageNo, String SCH_ORG_SECT) {
 		
 		try {
-			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl?start="+listNo);
+			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl?SCH_ORG_SECT="+SCH_ORG_SECT+"&start="+pageNo);
 			
 			System.out.println(url);
 			
@@ -84,39 +92,38 @@ public class schedule {
 			
 			String line = reader.readLine();
 			line.trim();
+			
 			while((line = reader.readLine()) != null) {
 				if(line.contains("<tr   id=")) {
-					// °ú¸ñ Á¤º¸°¡ µé¾î°¥ JSONObject ¼±¾ğ
-					scheduleInfo = new JSONObject();
+					lectureInfo = new JSONObject();
 					
 					String code = line.split(">")[0];
 					code.trim();
 					code = code.substring(20, 36);
-					scheduleInfo.put("code", code);
+					lectureInfo.put("code", code);
 					
 				} else if(line.contains("<tr class=\"list\"")) {
-					// °ú¸ñ Á¤º¸°¡ µé¾î°¥ JSONObject ¼±¾ğ
-					scheduleInfo = new JSONObject();
+					lectureInfo = new JSONObject();
 					
 					String code = line.split(">")[0];
 					code.trim();
 					code = code.substring(32, 48);
-					scheduleInfo.put("code", code);
+					lectureInfo.put("code", code);
 				}
 
 				if(line.contains("<td class=\"number")) {
 					String no = line.split(">")[1].split("<")[0];
 					no.trim();
 
-					scheduleInfo.put("no", no);
+					lectureInfo.put("no", no);
 				}
 				
 				if(line.contains("<td class=\"name") && line.contains("<br>")) {
 					String date_Year = line.split(">")[1].split("<")[0];
 					String date_Semester = line.split(">")[2].split("<")[0];
 
-					scheduleInfo.put("date_Year", date_Year);
-					scheduleInfo.put("date_Semester", date_Semester);
+					lectureInfo.put("date_Year", date_Year);
+					lectureInfo.put("date_Semester", date_Semester);
 				}
 				
 				if(line.contains("<td class=\"left") && line.contains("<br>")) {
@@ -125,22 +132,24 @@ public class schedule {
 
 					String professor_Name = line.split(">")[2].split("<")[0];
 
-					scheduleInfo.put("lecture_Name", lecture_Name);
-					scheduleInfo.put("professor_Name", professor_Name);
+					lectureInfo.put("lecture_Name", lecture_Name);
+					lectureInfo.put("professor_Name", professor_Name);
 					
 				} else if(line.contains("<td class=\"left")) {
-					String lecture_Date = line.split(">")[1].split("</td")[0];
-					lecture_Date.trim();
-
-					scheduleInfo.put("lecture_Date", lecture_Date);
+					String lecture_Date = line.split(">")[1].split("/td")[0];
+					if(lecture_Date.substring(0).equals("<")) {
+						lecture_Date="NULL";
+					} else {
+						lecture_Date = line.split(">")[1].split("</td")[0];
+						lecture_Date.trim();
+					}
+					lectureInfo.put("lecture_Date", lecture_Date);
 				}
 				if(line.contains("</tr")) {
-					
-					jsonArray.add(scheduleInfo);
-					jsonObject.put("schedule", jsonArray);
-					
-				}
 
+					jsonArray.add(lectureInfo);
+				}
+				
 			}
 			reader.close();
 
@@ -151,8 +160,7 @@ public class schedule {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return jsonObject;
+		return jsonArray;
 	}
 	
 	
@@ -202,22 +210,22 @@ public class schedule {
 //					if(line.contains("<td class=\"name") && line.contains("<br>")) {
 //						String date_Year = line.split(">")[1].split("<")[0];
 //						String date_Semester = line.split(">")[2].split("<")[0];
-//						System.out.println("³¯Â¥: "+date_Year + " " + date_Semester);
+//						System.out.println("ï¿½ï¿½Â¥: "+date_Year + " " + date_Semester);
 //						scheduleInfo.put("date_Year", date_Year);
 //						scheduleInfo.put("date_Semester", date_Semester);
 //					}
 //					if(line.contains("<td class=\"left") && line.contains("<br>")) {
 //						String lecture_Name = line.split(">")[1].split("<")[0];
 //						lecture_Name.trim();
-//						System.out.println("°­ÀÇ ¸í: "+lecture_Name);
+//						System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: "+lecture_Name);
 //						String professor_Name = line.split(">")[2].split("<")[0];
-//						System.out.println("±³¼ö: "+professor_Name);
+//						System.out.println("ï¿½ï¿½ï¿½ï¿½: "+professor_Name);
 //						scheduleInfo.put("lecture_Name", lecture_Name);
 //						scheduleInfo.put("professor_Name", professor_Name);
 //					} else if(line.contains("<td class=\"left")) {
 //						String lecture_Date = line.split(">")[1].split("</td")[0];
 //						lecture_Date.trim();
-//						System.out.println("°­ÀÇ ÀÏ½Ã: "+lecture_Date);
+//						System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½: "+lecture_Date);
 //						scheduleInfo.put("lecture_Date", lecture_Date);
 //					}
 //				}
