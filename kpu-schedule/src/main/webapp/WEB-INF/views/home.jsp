@@ -11,7 +11,7 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<a href="/schedule/index">main2 GO</a>
+<a href="/schedule/index">INDEX GO</a>
 
 <%@ include file="./main.jsp"%>
 

@@ -13,16 +13,14 @@ public class crawlingFunction {
 	
 	private static int totalList;
 	
-	static JSONObject jsonObject = new JSONObject();
 
-	static JSONObject lectureInfo = new JSONObject();
-
-    static JSONArray jsonArray = new JSONArray();
-
-    
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		JSONObject jsonObject = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		JSONArray lectureInfoArray = new JSONArray();
 		
 		int pageNo = 1;
 		String SCH_ORG_SECT = "G";
@@ -30,24 +28,50 @@ public class crawlingFunction {
 		totalList = pageInit(SCH_ORG_SECT);
 		System.out.println("TOTAL LIST -> "+ totalList);	
 		
-		lectureInfo.put("lectureInfo", "한국산업기술대학교 강의 정보");
-		lectureInfo.put("made", "이태웅");
-		lectureInfo.put("totalList", totalList);
+//		lectureInfo.put("lectureInfo", "한국산업기술대학교 강의 정보");
+//		lectureInfo.put("made", "이태웅");
+//		lectureInfo.put("totalList", totalList);
 		
 		while(pageNo <= totalList) {
-			jsonArray = schoolCrawling(pageNo, SCH_ORG_SECT);
-			jsonObject.put("lectureList", jsonArray);
+			jsonArray = schoolCrawling(jsonArray ,pageNo, SCH_ORG_SECT);
 			pageNo = pageNo + 10;
-			lectureInfo = new JSONObject();
-			lectureInfo.put("dataSize", jsonArray.size());
 		}
+		System.out.println("jsonArray: "+ jsonArray);
 		
-		System.out.println("Arraysize: "+ jsonArray.size());
-		System.out.println("jsonObject: "+ jsonObject);
-		
-		
-//        String jsonInfo = jsonObject.toJSONString();
-//        System.out.println(jsonInfo);
+		/*
+		 *	 
+		 */
+		for(int i = 0; i < jsonArray.size(); i++) {
+			JSONObject object = (JSONObject) jsonArray.get(i);
+			if(!object.isEmpty()) {
+				JSONObject lectureInfo = new JSONObject();
+				String lectureYear = object.get("lectureYear").toString();
+				String lectureIdx = object.get("lectureIdx").toString();		
+				String lectureGubun = object.get("lectureGubun").toString();
+				String lectureName = object.get("lectureName").toString();
+				String code = object.get("code").toString();		
+				String lectureSemester = object.get("lectureSemester").toString();
+				String lectureDate = object.get("lectureDate").toString();
+				String professorName = object.get("professorName").toString();
+				String lectureCode = object.get("lectureCode").toString();
+				
+				lectureInfo.put("lectureYear", lectureYear);
+				lectureInfo.put("lectureIdx", lectureIdx);
+				lectureInfo.put("lectureGubun", lectureGubun);
+				lectureInfo.put("lectureName", lectureName);
+				lectureInfo.put("code", code);
+				lectureInfo.put("lectureSemester", lectureSemester);
+				lectureInfo.put("lectureDate", lectureDate);
+				lectureInfo.put("professorName", professorName);
+				lectureInfo.put("lectureCode", lectureCode);
+				lectureInfoArray.add(lectureInfo);
+			}
+		}
+		jsonObject.put("lectureList", lectureInfoArray);
+		System.out.println("lectureInfoArray--->"+lectureInfoArray);
+		System.out.println("jsonArray--->"+jsonArray.size());
+		System.out.println("lectureInfoArray--->"+lectureInfoArray.size());
+		System.out.println("jsonObject--->"+jsonObject.size());
 		
 	}
 
@@ -81,8 +105,8 @@ public class crawlingFunction {
 	}
 	
 	@SuppressWarnings({ "unchecked", "unused" })
-	public static JSONArray schoolCrawling(int pageNo, String SCH_ORG_SECT) {
-		
+	public static JSONArray schoolCrawling(JSONArray jsonArray, int pageNo, String SCH_ORG_SECT) {
+		JSONObject lectureInfo = new JSONObject();
 		try {
 			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl?SCH_ORG_SECT="+SCH_ORG_SECT+"&start="+pageNo);
 			
@@ -92,67 +116,75 @@ public class crawlingFunction {
 			
 			String line = reader.readLine();
 			line.trim();
-			
+			lectureInfo.clear();
 			while((line = reader.readLine()) != null) {
-				if(line.contains("<tr   id=")) {
-					lectureInfo = new JSONObject();
-					
-					String code = line.split(">")[0];
-					code.trim();
-					code = code.substring(20, 36);
-					lectureInfo.put("code", code);
-					
-				} else if(line.contains("<tr class=\"list\"")) {
-					lectureInfo = new JSONObject();
-					
-					String code = line.split(">")[0];
-					code.trim();
-					code = code.substring(32, 48);
-					lectureInfo.put("code", code);
+				
+				if(line.contains("<tr")) {
+					if(line.contains("<tr   id=")) {
+						lectureInfo = new JSONObject();
+						
+						String code = line.split(">")[0];
+						code.trim();
+						code = code.substring(20, 36);
+						String lectureGubun = code.substring(0,1);
+						String lectureCode = code.substring(6,14);
+						lectureInfo.put("code", code);
+						lectureInfo.put("lectureGubun", lectureGubun);
+						lectureInfo.put("lectureCode", lectureCode);
+						
+					} else if(line.contains("<tr class=\"list\"")) {
+						lectureInfo = new JSONObject();
+						
+						String code = line.split(">")[0];
+						code.trim();
+						code = code.substring(32, 48);
+						String lectureGubun = code.substring(0,1);
+						String lectureCode = code.substring(6,14);
+						lectureInfo.put("code", code);
+						lectureInfo.put("lectureGubun", lectureGubun);
+						lectureInfo.put("lectureCode", lectureCode);
+					}
 				}
-
 				if(line.contains("<td class=\"number")) {
-					String no = line.split(">")[1].split("<")[0];
-					no.trim();
+					String lectureIdx = line.split(">")[1].split("<")[0];
+					lectureIdx.trim();
 
-					lectureInfo.put("no", no);
+					lectureInfo.put("lectureIdx", lectureIdx);
 				}
 				
 				if(line.contains("<td class=\"name") && line.contains("<br>")) {
-					String date_Year = line.split(">")[1].split("<")[0];
-					String date_Semester = line.split(">")[2].split("<")[0];
+					String lectureYear = line.split(">")[1].split("<")[0];
+					String lectureSemester = line.split(">")[2].split("<")[0];
 
-					lectureInfo.put("date_Year", date_Year);
-					lectureInfo.put("date_Semester", date_Semester);
+					lectureInfo.put("lectureYear", lectureYear);
+					lectureInfo.put("lectureSemester", lectureSemester);
 				}
 				
 				if(line.contains("<td class=\"left") && line.contains("<br>")) {
-					String lecture_Name = line.split(">")[1].split("<")[0];
-					lecture_Name.trim();
+					String lectureName = line.split(">")[1].split("<")[0];
+					lectureName.trim();
 
-					String professor_Name = line.split(">")[2].split("<")[0];
+					String professorName = line.split(">")[2].split("<")[0];
 
-					lectureInfo.put("lecture_Name", lecture_Name);
-					lectureInfo.put("professor_Name", professor_Name);
+					lectureInfo.put("lectureName", lectureName);
+					lectureInfo.put("professorName", professorName);
 					
 				} else if(line.contains("<td class=\"left")) {
-					String lecture_Date = line.split(">")[1].split("/td")[0];
-					if(lecture_Date.substring(0).equals("<")) {
-						lecture_Date="NULL";
+					String lectureDate = line.split(">")[1].split("/td")[0];
+					if(lectureDate.substring(0).equals("<")) {
+						lectureDate="NULL";
 					} else {
-						lecture_Date = line.split(">")[1].split("</td")[0];
-						lecture_Date.trim();
+						lectureDate = line.split(">")[1].split("</td")[0];
+						lectureDate.trim();
 					}
-					lectureInfo.put("lecture_Date", lecture_Date);
+					lectureInfo.put("lectureDate", lectureDate);
 				}
 				if(line.contains("</tr")) {
-
 					jsonArray.add(lectureInfo);
 				}
 				
 			}
 			reader.close();
-
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

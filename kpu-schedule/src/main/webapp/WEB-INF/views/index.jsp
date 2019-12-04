@@ -26,17 +26,15 @@
 github. https://github.com/doorisopen
 </footer>
 <script type="text/javascript">
-$(document).ready(function(){
-showList();
-});
-function showList() {
+	var htmls = "";
 	var url = "/schedule/lectureLoading";
 	$.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
         success: function(data, result) {
-           	var htmls = "";
+           	htmls = "";
+           	console.log(result.length);
            	var lecture = data;
           		htmls += '<colgroup>';
 			 	htmls += '<col width="160"><col width="160"><col width="160">';
@@ -51,25 +49,19 @@ function showList() {
 		if(result.length < 1){
 			htmls += 'Data Not Found..';
 		} else {
-			var undefine = 1; 
 			$(data).each(function(){
-			for(var i = 1; i <= lecture.lectureList.length - 1; i++) {
-				if(i !== 11*undefine) {
-					htmls += '<tbody><tr>';
-					htmls += '<td>'+lecture.lectureList[i].lectureIdx+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].code+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].lectureCode+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].lectureGubun+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].lectureName+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].lectureDate+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].lectureYear+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].lectureSemester+'</td>';
-					htmls += '<td>'+lecture.lectureList[i].professorName+'</td>';
-				 	htmls += '</tr></tbody>';
-				} else {
-					undefine++;
-					htmls += '</br>';
-				}
+			for(var i = 0; i < lecture.lectureList.length; i++) {
+				htmls += '<tbody><tr>';
+				htmls += '<td>'+lecture.lectureList[i].lectureIdx+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].code+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].lectureCode+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].lectureGubun+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].lectureName+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].lectureDate+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].lectureYear+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].lectureSemester+'</td>';
+				htmls += '<td>'+lecture.lectureList[i].professorName+'</td>';
+			 	htmls += '</tr></tbody>';
 			}
 			});	//each end
 		}
@@ -81,7 +73,7 @@ function showList() {
   	}
 
 	});// Ajax end
-}
+
 </script>
 
 </body>

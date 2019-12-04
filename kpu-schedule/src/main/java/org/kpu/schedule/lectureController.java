@@ -1,7 +1,6 @@
 package org.kpu.schedule;
 
 import java.nio.charset.Charset;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ public class lectureController {
 	@Autowired
 	lectureCrawler crawling;
 	
+	
+	
 	/*	Lecture List
 	 *	 
 	 * 
@@ -32,29 +33,57 @@ public class lectureController {
 		headers.set("My-Header", "MyHeaderValue");
 		
 		JSONObject jsonObject = new JSONObject();
-		JSONObject lectureInfo = new JSONObject();
 		JSONArray jsonArray = new JSONArray();
+		JSONArray lectureInfoArray = new JSONArray();
 		
 		// 강의 구분자
 		String SCH_ORG_SECT = "G";
-		// 페이지 전체 개수 
+		// 현재 페이지 
 		int pageNo = 1;
+		// 페이지 전체 개수
 		int totalPage = crawling.getPageCnt(SCH_ORG_SECT);
-		System.out.println("totalPage--->"+totalPage);
+//		System.out.println("totalPage--->"+totalPage);
 		
-		lectureInfo.put("lectureInfo", "한국산업기술대학교 강의 정보");
-		lectureInfo.put("made", "이태웅");
 		
 		while(pageNo <= totalPage) {
-			jsonArray = crawling.lectureCrawling(pageNo, SCH_ORG_SECT);
-			jsonObject.put("lectureList", jsonArray);
+			jsonArray = crawling.lectureCrawling(jsonArray, pageNo, SCH_ORG_SECT);
 			pageNo = pageNo + 10;
-			lectureInfo = new JSONObject();
-			lectureInfo.put("dataSize", jsonArray.size());
 		}
 		
-		
-		model.addAttribute("lectureObject",jsonObject);
+		/*	공백 객체 제거
+		 *
+		 */
+		for(int i = 0; i < jsonArray.size(); i++) {
+			JSONObject object = (JSONObject) jsonArray.get(i);
+			if(!object.isEmpty()) {
+				JSONObject lectureInfo = new JSONObject();
+				String lectureYear = object.get("lectureYear").toString();
+				String lectureIdx = object.get("lectureIdx").toString();		
+				String lectureGubun = object.get("lectureGubun").toString();
+				String lectureName = object.get("lectureName").toString();
+				String code = object.get("code").toString();		
+				String lectureSemester = object.get("lectureSemester").toString();
+				String lectureDate = object.get("lectureDate").toString();
+				String professorName = object.get("professorName").toString();
+				String lectureCode = object.get("lectureCode").toString();
+				
+				lectureInfo.put("lectureYear", lectureYear);
+				lectureInfo.put("lectureIdx", lectureIdx);
+				lectureInfo.put("lectureGubun", lectureGubun);
+				lectureInfo.put("lectureName", lectureName);
+				lectureInfo.put("code", code);
+				lectureInfo.put("lectureSemester", lectureSemester);
+				lectureInfo.put("lectureDate", lectureDate);
+				lectureInfo.put("professorName", professorName);
+				lectureInfo.put("lectureCode", lectureCode);
+				lectureInfoArray.add(lectureInfo);
+			}
+		}
+		jsonObject.put("lectureList", lectureInfoArray);
+//
+//		System.out.println("jsonArray--->"+jsonArray.size());
+//		System.out.println("lectureInfoArray--->"+lectureInfoArray.size());
+//		System.out.println("jsonObject--->"+jsonObject.size());
 		
 		return jsonObject;
 	}

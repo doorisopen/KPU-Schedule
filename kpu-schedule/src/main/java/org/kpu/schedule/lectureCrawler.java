@@ -5,21 +5,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+
+import com.sun.org.apache.xpath.internal.operations.Variable;
 
 
 @Service
 public class lectureCrawler {
 	
 	
-	
-	JSONObject lectureInfo = new JSONObject();
 
-	static JSONArray jsonArray = new JSONArray();
-	
 	/*	페이지 개수 구하기
 	 * 
 	 * 
@@ -52,10 +52,13 @@ public class lectureCrawler {
 		
 		return totalPage;
 	}
-	
+	/* 강의 정보 데이터 스크래핑 
+	 * 
+	 * @Return JSONArray
+	 */
 	@SuppressWarnings("unchecked")
-	public JSONArray lectureCrawling(int pageNo, String SCH_ORG_SECT) {
-	
+	public JSONArray lectureCrawling(JSONArray jsonArray, int pageNo, String SCH_ORG_SECT) {
+		JSONObject lectureInfo = new JSONObject();
 		try {
 			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl?SCH_ORG_SECT="+SCH_ORG_SECT+"&start="+pageNo);
 			
@@ -63,9 +66,9 @@ public class lectureCrawler {
 			
 			String line = reader.readLine();
 			line.trim();
+			lectureInfo.clear();
 			while((line = reader.readLine()) != null) {
 				if(line.contains("<tr   id=")) {
-					
 					lectureInfo = new JSONObject();
 					
 					String code = line.split(">")[0];
@@ -78,7 +81,6 @@ public class lectureCrawler {
 					lectureInfo.put("lectureCode", lectureCode);
 					
 				} else if(line.contains("<tr class=\"list\"")) {
-
 					lectureInfo = new JSONObject();
 					
 					String code = line.split(">")[0];
@@ -99,10 +101,10 @@ public class lectureCrawler {
 				}
 				
 				if(line.contains("<td class=\"name") && line.contains("<br>")) {
-					String date_Year = line.split(">")[1].split("<")[0].substring(0,4);
+					String lectureYear = line.split(">")[1].split("<")[0].substring(0,4);
 					String lectureSemester = line.split(">")[2].split("<")[0];
 
-					lectureInfo.put("lectureYear", date_Year);
+					lectureInfo.put("lectureYear", lectureYear);
 					lectureInfo.put("lectureSemester", lectureSemester);
 				}
 				
@@ -126,9 +128,7 @@ public class lectureCrawler {
 					lectureInfo.put("lectureDate", lectureDate);
 				}
 				if(line.contains("</tr")) {
-					
 					jsonArray.add(lectureInfo);
-
 				}
 
 			}
@@ -152,19 +152,20 @@ public class lectureCrawler {
 	/*	강의 리스트 스크래퍼 -----------------------------------------------------------------------------------
 	 * 
 	 * 
-	public List<lectureVO> lectureCrawling(int pageNo, String SCH_ORG_SECT) {
+	 * */
+	public List<lectureVO> lectureCrawlingList(int pageNo, String SCH_ORG_SECT) {
 		List<lectureVO> lectureInfo = new ArrayList<lectureVO>();
 		lectureVO vo = new lectureVO();
-		 Variable 
-		String lectureIdx = "";
-		String code= "";
-		String lectureCode= "";
-		String lectureGubun= "";
-		String lectureName= "";
-		String lectureDate= "";
-		String lectureYear= "";
-		String lectureSemester= "";
-		String professorName= "";
+//		 Variable 
+//		String lectureIdx = "";
+//		String code= "";
+//		String lectureCode= "";
+//		String lectureGubun= "";
+//		String lectureName= "";
+//		String lectureDate= "";
+//		String lectureYear= "";
+//		String lectureSemester= "";
+//		String professorName= "";
 		
 		try {
 			URL url = new URL("http://eclass.kpu.ac.kr/ilos/st/main/course_ing_list.acl?SCH_ORG_SECT="+SCH_ORG_SECT+"&start="+pageNo);
@@ -248,6 +249,6 @@ public class lectureCrawler {
 		}
 		return lectureInfo;
 	}
-	*/
+	
 
 }
