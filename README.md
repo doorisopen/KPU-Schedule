@@ -6,20 +6,23 @@
 
 </br>
 
-* __사이트 미리보기__ </br>
+## Site Preview
 <a href="http://13.125.253.127:8080/kpu-schedule/"> Click Me </a>
 
-## 개발 환경
+## Dev Env
+* Spring4
+* jackson
 
-## 구현 리스트
-|  -->  |  -->  |  -->  |
-|:--------|:--------:|--------:|
-| 시간표 만들기 | 시간표 경우의 수 | 게시판 | 
+## Dev Stage
+* [x] Lecture Data Scrapy
 
 
 
-### FrontEnd 
-* React
+## Dev Issue
+* No ‘Access-Control-Allow-Origin’ header is present on the requested resource ( 크로스 도메인 문제 발생 )
 
-### BackEnd 
-* Spring 5 (RESTFul)
+```
+@CrossOrigin(origins = "*") // <--- 추가 
+```
+
+* https -> http 호출x AWS SSL 등록 방법
