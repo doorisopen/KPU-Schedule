@@ -1,12 +1,14 @@
-package org.kpu.schedule;
+package org.kpu.schedule.lecture;
 
 import java.nio.charset.Charset;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,7 @@ public class lectureController {
 	
 	
 	@Autowired
-	lectureCrawler crawling;
+	lectureService service;
 	
 	
 	
@@ -25,9 +27,10 @@ public class lectureController {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/lectureLoading", method = RequestMethod.GET)
+	@RequestMapping(value = "/lectureLoading/{schorgsect}", method = RequestMethod.GET)
 	public JSONObject lectureLoading(Model model 
-							, lectureVO vo) throws Exception {
+							, lectureVO vo
+							,@PathVariable String schorgsect) throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		headers.set("My-Header", "MyHeaderValue");
@@ -36,17 +39,17 @@ public class lectureController {
 		JSONArray jsonArray = new JSONArray();
 		JSONArray lectureInfoArray = new JSONArray();
 		
-		// 강의 구분자
-		String SCH_ORG_SECT = "G";
+		// 강의 구분자 ( A or G )
+		String SCH_ORG_SECT = schorgsect;
 		// 현재 페이지 
 		int pageNo = 1;
 		// 페이지 전체 개수
-		int totalPage = crawling.getPageCnt(SCH_ORG_SECT);
+		int totalPage = service.getPageCnt(SCH_ORG_SECT);
 //		System.out.println("totalPage--->"+totalPage);
 		
 		
 		while(pageNo <= totalPage) {
-			jsonArray = crawling.lectureCrawling(jsonArray, pageNo, SCH_ORG_SECT);
+			jsonArray = service.lectureCrawling(jsonArray, pageNo, SCH_ORG_SECT);
 			pageNo = pageNo + 10;
 		}
 		

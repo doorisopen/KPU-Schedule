@@ -6,14 +6,22 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	KPU Lecture REST api Test Page
 </h1>
-
 <P>  The time on the server is ${serverTime}. </P>
 
-<a href="/schedule/index">INDEX GO</a>
+<h2>INDEX Page</h2>
+<div><a href="/kpu-schedule/">INDEX Page GO</a></div>
 
-<%@ include file="./main.jsp"%>
+<h2>lectureListPage Page</h2>
+<div><a href="/kpu-schedule/lectureListPage">lectureListPage GO</a></div>
+
+<h2>JSON TEST</h2>
+<div><a href="/kpu-schedule/lectureLoading">LectureLoading JSON Test</a></div>
+
+
+
+
 
 </body>
 </html>

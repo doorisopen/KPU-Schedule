@@ -1,4 +1,4 @@
-package org.kpu.schedule;
+package org.kpu.schedule.lecture;
 
 public class lectureVO {
 	

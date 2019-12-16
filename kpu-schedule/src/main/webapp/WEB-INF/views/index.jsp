@@ -11,30 +11,44 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<header>
-한국산업기술대학교 강의 시간표 만들기
-</header>
-<div class="content-wrapper">
-	<div class="timetable">
-		시간표
-	</div>
-	<div class="lectureList">
-		<table id="lectureList" border="1"></table>
-	</div>
+<div class="lecture-page">
+	<header class="lecture-page-header">
+		한국산업기술대학교 강의 시간표 만들기
+	</header>
+	
+		<div class="contents-container">
+			<div class="contents-wrapper">
+				<div class="timetable">
+					시간표
+				</div>
+				<div class="lectureList-Controller">lectureList-Controller</div>
+				<div class="lectureList">
+					<table id="lectureList" border="1">
+					</table>
+				</div>
+			</div>
+		</div>
+		
+	<footer class="lecture-page-footer">
+		github. https://github.com/doorisopen
+	</footer>
 </div>
-<footer>
-github. https://github.com/doorisopen
-</footer>
+
 <script type="text/javascript">
-	var htmls = "";
-	var url = "/schedule/lectureLoading";
+
+var htmls = "";
+
+window.onload = function(){
+	var url = "/kpu-schedule/lectureLoading/A";
 	$.ajax({
         type: 'GET',
         url: url,
         dataType: 'json',
         success: function(data, result) {
+        	Loading = true;
+        	lectureList.style.display = "block";
            	htmls = "";
-           	console.log(result.length);
+           	console.log(result);
            	var lecture = data;
           		htmls += '<colgroup>';
 			 	htmls += '<col width="160"><col width="160"><col width="160">';
@@ -42,9 +56,9 @@ github. https://github.com/doorisopen
 			 	htmls += '<col width="160"><col width="160"><col width="160">';
 			 	htmls += '</colgroup>';
 			 	htmls += '<thead>';
-			 	htmls += '<th>1</th><th>2</th><th>3</th>';
-			 	htmls += '<th>4</th><th>5</th><th>6</th>';
-			 	htmls += '<th>7</th><th>8</th><th>9</th>';
+			 	htmls += '<th>NO</th><th>Code</th><th>강의코드</th>';
+			 	htmls += '<th>강의 구분(대학/원)</th><th>강의 명</th><th>강의 시간</th>';
+			 	htmls += '<th>강의 연도</th><th>학기</th><th>교수</th>';
 			 	htmls += '</thead>';
 		if(result.length < 1){
 			htmls += 'Data Not Found..';
@@ -73,7 +87,7 @@ github. https://github.com/doorisopen
   	}
 
 	});// Ajax end
-
+}
 </script>
 
 </body>

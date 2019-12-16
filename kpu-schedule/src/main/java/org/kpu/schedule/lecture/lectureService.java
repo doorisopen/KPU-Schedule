@@ -1,4 +1,4 @@
-package org.kpu.schedule;
+package org.kpu.schedule.lecture;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import com.sun.org.apache.xpath.internal.operations.Variable;
 
 
 @Service
-public class lectureCrawler {
+public class lectureService {
 	
 	
 

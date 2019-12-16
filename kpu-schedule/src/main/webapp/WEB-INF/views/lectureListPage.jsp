@@ -10,13 +10,14 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body oncontextmenu="return false">
-
-<a href="/schedule/lectureLoading">JSON GO</a>
+<h1>Test Page</h1>
+<div><a href="/kpu-schedule/home">HOME GO</a></div>
+<div><a href="/kpu-schedule/lectureLoading/G">LectureLoading JSON Test</a></div>
 <div id="list" ></div>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var url = "/schedule/lectureLoading";
+	var url = "/kpu-schedule/lectureLoading/G";
 	$.ajax({
 		type: 'GET',
 		url: url,
