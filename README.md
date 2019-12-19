@@ -15,7 +15,7 @@
 
 ## Dev Stage
 * [x] Lecture Data Scrapy
-
+* [ ] Anonymous Board
 
 
 ## Dev Issue
