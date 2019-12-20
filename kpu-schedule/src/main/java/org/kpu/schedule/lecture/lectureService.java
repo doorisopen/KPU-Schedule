@@ -152,7 +152,7 @@ public class lectureService {
 	/*	강의 리스트 스크래퍼 -----------------------------------------------------------------------------------
 	 * 
 	 * 
-	 * */
+	 * 
 	public List<lectureVO> lectureCrawlingList(int pageNo, String SCH_ORG_SECT) {
 		List<lectureVO> lectureInfo = new ArrayList<lectureVO>();
 		lectureVO vo = new lectureVO();
@@ -249,6 +249,6 @@ public class lectureService {
 		}
 		return lectureInfo;
 	}
-	
+	*/
 
 }

@@ -25,7 +25,7 @@ $(document).ready(function(){
 		success: function(data,result) {
 			var htmls = "";
 			var lecture = data;
-			var dataSize = lecture.lectureList.length;
+			var dataSize = lecture.lectures.length;
 			$("#list").html();
 			htmls += '<div style="background-color: #00bcd4;"> ';
 			htmls += 'DataSize-->'+dataSize;
@@ -36,12 +36,12 @@ $(document).ready(function(){
 				$(data).each(function(){
 					for(var i = 0; i < dataSize; i++) {
 						htmls += '<div>';
-						htmls += '<strong>' + i + '</strong>' + '. '+ lecture.lectureList[i].lectureIdx;
-						htmls += ' '+ lecture.lectureList[i].lectureYear;
-						htmls += ' '+ lecture.lectureList[i].lectureName;
-						htmls += ' '+ lecture.lectureList[i].professorName;
-						htmls += ' '+ lecture.lectureList[i].lectureDate;
-						htmls += ' '+ lecture.lectureList[i].lectureCode;
+						htmls += '<strong>' + i + '</strong>' + '. '+ lecture.lectures[i].lectureIdx;
+						htmls += ' '+ lecture.lectures[i].lectureYear;
+						htmls += ' '+ lecture.lectures[i].lectureName;
+						htmls += ' '+ lecture.lectures[i].professorName;
+						htmls += ' '+ lecture.lectures[i].lectureDate;
+						htmls += ' '+ lecture.lectures[i].lectureCode;
 						htmls += '</div>';
 					}
 				});	//each end

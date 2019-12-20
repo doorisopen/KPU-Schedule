@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ public class lectureController {
 	 *	 
 	 * 
 	 */
+	@CrossOrigin(origins = "*")
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/lectureLoading/{schorgsect}", method = RequestMethod.GET)
 	public JSONObject lectureLoading(Model model 
@@ -82,7 +84,7 @@ public class lectureController {
 				lectureInfoArray.add(lectureInfo);
 			}
 		}
-		jsonObject.put("lectureList", lectureInfoArray);
+		jsonObject.put("lectures", lectureInfoArray);
 //
 //		System.out.println("jsonArray--->"+jsonArray.size());
 //		System.out.println("lectureInfoArray--->"+lectureInfoArray.size());

@@ -66,15 +66,15 @@ window.onload = function(){
 			$(data).each(function(){
 			for(var i = 0; i < lecture.lectureList.length; i++) {
 				htmls += '<tbody><tr>';
-				htmls += '<td>'+lecture.lectureList[i].lectureIdx+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].code+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].lectureCode+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].lectureGubun+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].lectureName+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].lectureDate+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].lectureYear+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].lectureSemester+'</td>';
-				htmls += '<td>'+lecture.lectureList[i].professorName+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureIdx+'</td>';
+				htmls += '<td>'+lecture.lectures[i].code+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureCode+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureGubun+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureName+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureDate+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureYear+'</td>';
+				htmls += '<td>'+lecture.lectures[i].lectureSemester+'</td>';
+				htmls += '<td>'+lecture.lectures[i].professorName+'</td>';
 			 	htmls += '</tr></tbody>';
 			}
 			});	//each end

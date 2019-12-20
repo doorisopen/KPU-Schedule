@@ -20,8 +20,5 @@
 <div><a href="/kpu-schedule/lectureLoading">LectureLoading JSON Test</a></div>
 
 
-
-
-
 </body>
 </html>
