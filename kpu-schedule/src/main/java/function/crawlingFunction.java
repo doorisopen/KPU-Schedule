@@ -1,4 +1,4 @@
-package org.kpu.schedule;
+package function;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class crawlingFunction {
 			jsonArray = schoolCrawling(jsonArray ,pageNo, SCH_ORG_SECT);
 			pageNo = pageNo + 10;
 		}
-		System.out.println("jsonArray: "+ jsonArray);
+//		System.out.println("jsonArray: "+ jsonArray);
 		
 		/*
 		 *	 
@@ -52,6 +52,7 @@ public class crawlingFunction {
 				String code = object.get("code").toString();		
 				String lectureSemester = object.get("lectureSemester").toString();
 				String lectureDate = object.get("lectureDate").toString();
+				String lectureLocation = object.get("lectureLocation").toString();
 				String professorName = object.get("professorName").toString();
 				String lectureCode = object.get("lectureCode").toString();
 				
@@ -62,6 +63,7 @@ public class crawlingFunction {
 				lectureInfo.put("code", code);
 				lectureInfo.put("lectureSemester", lectureSemester);
 				lectureInfo.put("lectureDate", lectureDate);
+				lectureInfo.put("lectureLocation", lectureLocation);
 				lectureInfo.put("professorName", professorName);
 				lectureInfo.put("lectureCode", lectureCode);
 				lectureInfoArray.add(lectureInfo);
@@ -69,9 +71,9 @@ public class crawlingFunction {
 		}
 		jsonObject.put("lectureList", lectureInfoArray);
 		System.out.println("lectureInfoArray--->"+lectureInfoArray);
-		System.out.println("jsonArray--->"+jsonArray.size());
-		System.out.println("lectureInfoArray--->"+lectureInfoArray.size());
-		System.out.println("jsonObject--->"+jsonObject.size());
+//		System.out.println("jsonArray--->"+jsonArray.size());
+//		System.out.println("lectureInfoArray--->"+lectureInfoArray.size());
+//		System.out.println("jsonObject--->"+jsonObject.size());
 		
 	}
 
@@ -171,13 +173,20 @@ public class crawlingFunction {
 					
 				} else if(line.contains("<td class=\"left")) {
 					String lectureDate = line.split(">")[1].split("/td")[0];
+					String lectureLocation = "";
 					if(lectureDate.substring(0).equals("<")) {
 						lectureDate="NULL";
+						lectureLocation="NULL";
 					} else {
+						lectureLocation = lectureDate.substring(lectureDate.indexOf("(")+1,lectureDate.indexOf(")"));
 						lectureDate = line.split(">")[1].split("</td")[0];
+						lectureDate = lectureDate.substring(0,lectureDate.indexOf("("));
 						lectureDate.trim();
+						
 					}
+					System.out.println(lectureLocation);
 					lectureInfo.put("lectureDate", lectureDate);
+					lectureInfo.put("lectureLocation", lectureLocation);
 				}
 				if(line.contains("</tr")) {
 					jsonArray.add(lectureInfo);

@@ -39,7 +39,7 @@
 var htmls = "";
 
 window.onload = function(){
-	var url = "/kpu-schedule/lectureLoading/A";
+	var url = "/kpu-schedule/lectureLoading/G";
 	$.ajax({
         type: 'GET',
         url: url,

@@ -69,6 +69,7 @@ public class lectureController {
 				String code = object.get("code").toString();		
 				String lectureSemester = object.get("lectureSemester").toString();
 				String lectureDate = object.get("lectureDate").toString();
+				String lectureLocation = object.get("lectureLocation").toString();
 				String professorName = object.get("professorName").toString();
 				String lectureCode = object.get("lectureCode").toString();
 				
@@ -79,6 +80,7 @@ public class lectureController {
 				lectureInfo.put("code", code);
 				lectureInfo.put("lectureSemester", lectureSemester);
 				lectureInfo.put("lectureDate", lectureDate);
+				lectureInfo.put("lectureLocation", lectureLocation);
 				lectureInfo.put("professorName", professorName);
 				lectureInfo.put("lectureCode", lectureCode);
 				lectureInfoArray.add(lectureInfo);

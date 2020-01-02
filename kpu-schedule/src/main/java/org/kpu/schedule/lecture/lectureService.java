@@ -119,13 +119,19 @@ public class lectureService {
 					
 				} else if(line.contains("<td class=\"left")) {
 					String lectureDate = line.split(">")[1].split("/td")[0];
+					String lectureLocation = "";
 					if(lectureDate.substring(0).equals("<")) {
 						lectureDate="NULL";
+						lectureLocation="NULL";
 					} else {
+						lectureLocation = lectureDate.substring(lectureDate.indexOf("(")+1,lectureDate.indexOf(")"));
 						lectureDate = line.split(">")[1].split("</td")[0];
+						lectureDate = lectureDate.substring(0,lectureDate.indexOf("("));
 						lectureDate.trim();
+						lectureLocation.trim();
 					}
 					lectureInfo.put("lectureDate", lectureDate);
+					lectureInfo.put("lectureLocation", lectureLocation);
 				}
 				if(line.contains("</tr")) {
 					jsonArray.add(lectureInfo);
