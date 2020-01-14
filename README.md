@@ -7,7 +7,9 @@
 </br>
 
 ## Site Preview
-<a href="http://13.125.253.127:8080/kpu-schedule/"> Click Me </a>
+<a href="http://13.125.253.127:8080/kpu-schedule/home"> Preview : Home Go - Click Me </a>|
+<a href="http://13.125.253.127:8080/kpu-schedule/lectureLoading/A"> A: 대학 강의 리스트 </a>|
+<a href="http://13.125.253.127:8080/kpu-schedule/lectureLoading/G"> G: 대학원 강의 리스트 </a>
 
 ## Dev Env
 * Spring4
