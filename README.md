@@ -1,5 +1,5 @@
 ## 한국산업기술대학교 시간표 만들기 웹 사이트
-한국산업기술대학교 시간표 만들기 웹 사이트를 RESTful 하게 만들어보자
+한국산업기술대학교 시간표 만들기 RESTFUL 하게 만들어보자
 
 2019-11-30 ~ ing...
 
@@ -12,8 +12,7 @@
 <a href="http://13.125.253.127:8080/kpu-schedule/lectureLoading/G"> G: 대학원 강의 리스트 </a>
 
 ## Dev Env
-* Spring4
-* jackson
+* Spring5
 
 ## Dev Stage
 * [x] Lecture Data Scrapy
