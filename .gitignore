@@ -1,0 +1,43 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+.gradle/
+build.gradle
+gradle/
+gradlew
+gradlew.bat
+kpu-schedule/src/main/resources/META-INF/
+kpu-schedule/src/main/webapp/WEB-INF/classes/
+kpu-schedule/src/test/java/
+kpu-schedule/target/test-classes/org/
+settings.gradle
+src/
