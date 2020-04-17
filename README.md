@@ -1,6 +1,8 @@
 ## 한국산업기술대학교 시간표 API 관리 어플리케이션
 한국산업기술대학교 강의 API 관리 어플리케이션 만들기
 
+[old project go](https://github.com/doorisopen/kpu-schedule/tree/64eab9c9a2c1f03a27407228bf0ed4361a17d07f)
+
 * start date: 2019.11.30 
 * renew date: 2020.04.16 ~
 
