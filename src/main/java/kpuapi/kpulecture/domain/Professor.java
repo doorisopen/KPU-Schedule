@@ -19,10 +19,17 @@ public class Professor {
 
     private String professorName;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "major_id")
     private Major major;
 
     @OneToMany(mappedBy = "professor")
     private List<Lecture> lectures = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void setMajor(Major major) {
+        this.major = major;
+        major.setProfessor(this);
+    }
+
 }

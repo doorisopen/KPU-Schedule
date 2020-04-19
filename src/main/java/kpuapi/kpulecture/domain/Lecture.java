@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC) // 생성자 접근 권한 설정: 테스트를 위해 임시로 Public, 의도한 코드는 PROTECTED
 @Getter @Setter
 public class Lecture {
 
@@ -23,7 +23,24 @@ public class Lecture {
     private Professor professor;
 
     private int semester;
-    private LocalDateTime lectureDate;
+    private String lectureDate;
     private String lectureRoom;
+
+    //==연관관계 메서드==//
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+        professor.getLectures().add(this);
+    }
+
+    //==생성 메서드==//
+
+
+    //==비즈니스 로직==//
+    public void change(String lectureCode, String lectureName, String lectureDate, String lectureRoom) {
+        this.setLectureCode(lectureCode);
+        this.setLectureName(lectureName);
+        this.setLectureDate(lectureDate);
+        this.setLectureRoom(lectureRoom);
+    }
 
 }
