@@ -49,6 +49,10 @@ public class ProfessorServiceTest {
         assertEquals(professor, professorRepository.findOne(saveId));
     }
 
+    /**
+     * 중복 등록 예외가 발생한다.
+     * @throws Exception
+     */
     @Test
     public void 중복_등록_예외() throws Exception {
         //given

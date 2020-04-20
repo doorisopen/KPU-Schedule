@@ -16,8 +16,8 @@ public class Major {
     private String majorCode;
     private String majorName;
 
-    @OneToOne(mappedBy = "major", fetch = FetchType.LAZY)
-    private Professor professor;
+//    @OneToOne(mappedBy = "major", fetch = FetchType.LAZY)
+//    private Professor professor;
 
 
     //==비즈니스 로직==//

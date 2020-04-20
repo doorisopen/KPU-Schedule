@@ -31,7 +31,7 @@ public class LectureService {
 
     @Transactional
     public void updateLecture(Long lectureId, Long professorId, String lectureCode,
-                              String lectureName, int semester, String lecturDate, String lecturRoom) {
+                              String lectureName, int semester, String lectureDate, String lectureRoom) {
         //강의 찾기
         Lecture findLecture = lectureRepository.findOne(lectureId);
 
@@ -39,11 +39,16 @@ public class LectureService {
         Professor findProfessor = professorRepository.findOne(professorId);
 
         //강의 수정
-        findLecture.change(lectureCode, lectureName, findProfessor, semester, lecturDate, lecturRoom);
+        findLecture.change(lectureCode, lectureName, findProfessor, semester, lectureDate, lectureRoom);
     }
 
+    // N + 1 발생 -> join fetch 로 성능 개선...
     public List<Lecture> findLecture() {
         return lectureRepository.findAll();
+    }
+
+    public List<Lecture> findLectureWithProfessor() {
+        return lectureRepository.findAllWithProfessor();
     }
 
     public Lecture findOne(Long lectureId) {

@@ -52,7 +52,7 @@ public class LectureController {
 
     @GetMapping("/lectures")
     public String list(Model model) {
-        List<Lecture> lectures = lectureService.findLecture();
+        List<Lecture> lectures = lectureService.findLectureWithProfessor();
         model.addAttribute("lectures", lectures);
         return "lectures/lectureList";
     }

@@ -28,6 +28,10 @@ public class LectureServiceTest {
     @Autowired ProfessorService professorService;
     @Autowired EntityManager em;
 
+    /**
+     * 강의등록에 성공한다.
+     * @throws Exception
+     */
     @Test
     public void 강의등록() throws Exception {
         //given
@@ -45,7 +49,10 @@ public class LectureServiceTest {
     }
 
 
-
+    /**
+     * 강의 수정에 성공한다.
+     * @throws Exception
+     */
     @Test
     public void 강의_수정_테스트() throws Exception {
         //given

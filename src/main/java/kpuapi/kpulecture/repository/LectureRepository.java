@@ -27,6 +27,11 @@ public class LectureRepository {
                 .getResultList();
     }
 
+    public List<Lecture> findAllWithProfessor() {
+        return em.createQuery("select l from Lecture l join fetch l.professor p", Lecture.class)
+                .getResultList();
+    }
+
     public Lecture findOne(Long id) {
         return em.find(Lecture.class, id);
     }
