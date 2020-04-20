@@ -27,7 +27,6 @@ public class MajorController {
     @PostMapping("/majors/new")
     public String create(MajorForm form) {
         Major major = new Major();
-        major.setMajorName(form.getMajorName());
         major.setMajorCode(form.getMajorCode());
 
         majorService.save(major);
@@ -48,7 +47,6 @@ public class MajorController {
 
         MajorForm form = new MajorForm();
         form.setId(majorId);
-        form.setMajorName(major.getMajorName());
         form.setMajorCode(major.getMajorCode());
 
         model.addAttribute("form", form);
@@ -57,7 +55,7 @@ public class MajorController {
 
     @PostMapping("majors/{majorId}/edit")
     public String updateMajor(@PathVariable("majorId") Long majorId, @ModelAttribute("form") MajorForm form) {
-        majorService.updateMajor(majorId, form.getMajorName(), form.getMajorCode());
+        majorService.updateMajor(majorId, form.getMajorCode());
         return "redirect:/";
     }
 

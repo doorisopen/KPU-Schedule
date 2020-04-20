@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.repository;
 
 import kpuapi.kpulecture.domain.Lecture;
+import kpuapi.kpulecture.scraping.CrawlingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -35,5 +36,6 @@ public class LectureRepository {
     public Lecture findOne(Long id) {
         return em.find(Lecture.class, id);
     }
+
 
 }

@@ -3,9 +3,7 @@ package kpuapi.kpulecture.repository;
 import kpuapi.kpulecture.domain.Professor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository

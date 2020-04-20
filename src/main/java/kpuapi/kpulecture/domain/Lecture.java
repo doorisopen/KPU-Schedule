@@ -17,12 +17,14 @@ public class Lecture {
 
     private String lectureCode;
     private String lectureName;
+    private String lectureGubun;
+    private int lectureYear;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
-    private int semester;
+    private String lectureSemester;
     private String lectureDate;
     private String lectureRoom;
 
@@ -36,11 +38,11 @@ public class Lecture {
 
 
     //==비즈니스 로직==//
-    public void change(String lectureCode, String lectureName, Professor professor, int semester, String lectureDate, String lectureRoom) {
+    public void change(String lectureCode, String lectureName, Professor professor, String lectureSemester, String lectureDate, String lectureRoom) {
         this.setLectureCode(lectureCode);
         this.setLectureName(lectureName);
         this.setProfessor(professor);
-        this.setSemester(semester);
+        this.setLectureSemester(lectureSemester);
         this.setLectureDate(lectureDate);
         this.setLectureRoom(lectureRoom);
     }

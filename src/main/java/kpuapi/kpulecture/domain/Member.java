@@ -1,4 +1,4 @@
-package kpuapi.kpulecture;
+package kpuapi.kpulecture.domain;
 
 import lombok.Getter;
 import lombok.Setter;

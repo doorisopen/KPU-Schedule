@@ -22,6 +22,12 @@ public class MajorRepository {
                 .getResultList();
     }
 
+    public List<Major> findByMajorCode(String majorCode) {
+        return em.createQuery("select m from Major m where m.majorCode = :majorCode", Major.class)
+                .setParameter("majorCode", majorCode)
+                .getResultList();
+    }
+
     public Major findOne(Long id) {
         return em.find(Major.class, id);
     }

@@ -20,7 +20,7 @@
             <tbody>
             <tr th:each="lecture : ${lectures}">
                 <td th:text="${lecture.id}"></td>
-                <td th:text="${lecture.semester}"></td>
+                <td th:text="${lecture.lectureSemester}"></td>
                 <td th:text="${lecture.lectureName}"></td>
                 <td th:text="${lecture.lectureCode}"></td>
                 <td th:text="${lecture.professor.professorName}"></td>

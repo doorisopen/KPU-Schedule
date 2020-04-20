@@ -1,5 +1,6 @@
-package kpuapi.kpulecture;
+package kpuapi.kpulecture.repository;
 
+import kpuapi.kpulecture.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

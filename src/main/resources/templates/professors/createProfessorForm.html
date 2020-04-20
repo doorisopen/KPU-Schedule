@@ -24,7 +24,7 @@
                 <option value="">전공선택</option>
                 <option th:each="major : ${majors}"
                         th:value="${major.id}"
-                        th:text="${major.majorName}" />
+                        th:text="${major.majorCode.name}" />
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.service;
 
 import kpuapi.kpulecture.domain.Major;
+import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.domain.Professor;
 import kpuapi.kpulecture.repository.ProfessorRepository;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class ProfessorServiceTest {
     public void 교수등록() throws Exception {
         //given
         Major major = new Major();
-        major.setMajorName("컴퓨터공학과");
+        major.setMajorCode(MajorCode.ACS);
 
         Long majorId = majorService.save(major);
 
@@ -57,7 +58,7 @@ public class ProfessorServiceTest {
     public void 중복_등록_예외() throws Exception {
         //given
         Major major = new Major();
-        major.setMajorName("컴퓨터공학과");
+        major.setMajorCode(MajorCode.ACS);
 
         Long majorId = majorService.save(major);
 

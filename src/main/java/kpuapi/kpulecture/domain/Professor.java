@@ -27,9 +27,5 @@ public class Professor {
     private List<Lecture> lectures = new ArrayList<>();
 
     //==연관관계 메서드==//
-//    public void setMajor(Major major) {
-//        this.major = major;
-//        major.setProfessor(this);
-//    }
 
 }

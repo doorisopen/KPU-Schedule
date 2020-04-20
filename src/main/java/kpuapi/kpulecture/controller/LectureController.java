@@ -5,7 +5,6 @@ import kpuapi.kpulecture.domain.Lecture;
 import kpuapi.kpulecture.domain.Professor;
 import kpuapi.kpulecture.service.LectureService;
 import kpuapi.kpulecture.service.ProfessorService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,11 +40,11 @@ public class LectureController {
         Lecture lecture = new Lecture();
         lecture.setLectureCode(form.getLectureCode());
         lecture.setLectureName(form.getLectureName());
-        lecture.setSemester(form.getSemester());
+        lecture.setLectureSemester(form.getLectureSemester());
         lecture.setLectureDate(form.getLectureDate());
         lecture.setLectureRoom(form.getLectureRoom());
 
-        lectureService.saveLecture(lecture, professorId);
+        lectureService.save(lecture, professorId);
 
         return "redirect:/";
     }
@@ -67,7 +66,7 @@ public class LectureController {
         form.setLectureCode(lecture.getLectureCode());
         form.setLectureName(lecture.getLectureName());
         form.setProfessorId(lecture.getProfessor().getId());
-        form.setSemester(lecture.getSemester());
+        form.setLectureSemester(lecture.getLectureSemester());
         form.setLectureDate(lecture.getLectureDate());
         form.setLectureRoom(lecture.getLectureRoom());
 
@@ -80,7 +79,7 @@ public class LectureController {
     @PostMapping("lectures/{lectureId}/edit")
     public String updateLecture(@PathVariable("lectureId") Long lectureId, @ModelAttribute("form") LectureForm form) {
         lectureService.updateLecture(lectureId, form.getProfessorId(), form.getLectureCode(), form.getLectureName(),
-                form.getSemester(), form.getLectureDate(), form.getLectureRoom());
+                form.getLectureSemester(), form.getLectureDate(), form.getLectureRoom());
         return "redirect:/";
     }
 }

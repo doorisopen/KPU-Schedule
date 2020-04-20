@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.service;
 
 import kpuapi.kpulecture.domain.Major;
+import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.repository.MajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MajorService {
 
     private final MajorRepository majorRepository;
+
 
     @Transactional
     public Long save(Major major) {
@@ -30,8 +32,8 @@ public class MajorService {
     }
 
     @Transactional
-    public void updateMajor(Long majorId, String majorName, String majorCode) {
+    public void updateMajor(Long majorId, MajorCode majorCode) {
         Major findMajor = majorRepository.findOne(majorId);
-        findMajor.change(majorName, majorCode);
+        findMajor.change(majorCode);
     }
 }

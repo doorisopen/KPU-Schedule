@@ -17,7 +17,7 @@
       <tr th:each="professor : ${professors}">
         <td th:text="${professor.id}"></td>
         <td th:text="${professor.professorName}"></td>
-        <td th:text="${professor.major.majorName}"></td>
+        <td th:text="${professor.major.majorCode.name}"></td>
       </tr>
       </tbody>
     </table>

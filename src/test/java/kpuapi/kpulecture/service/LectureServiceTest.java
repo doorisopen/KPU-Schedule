@@ -2,6 +2,7 @@ package kpuapi.kpulecture.service;
 
 import kpuapi.kpulecture.domain.Lecture;
 import kpuapi.kpulecture.domain.Major;
+import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.domain.Professor;
 import kpuapi.kpulecture.repository.LectureRepository;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class LectureServiceTest {
         lecture.setLectureName("스프링부트");
 
         //when
-        Long saveId = lectureService.saveLecture(lecture, professorId);
+        Long saveId = lectureService.save(lecture, professorId);
 
         //then
         assertEquals(lecture, lectureRepository.findOne(saveId));
@@ -61,11 +62,11 @@ public class LectureServiceTest {
 
         Lecture lecture = new Lecture();
         lecture.setLectureName("스프링부트");
-        Long saveId = lectureService.saveLecture(lecture, professorId);
+        Long saveId = lectureService.save(lecture, professorId);
 
         //when
         Lecture findLecture = lectureService.findOne(saveId);
-        lectureService.updateLecture(findLecture.getId(), professorId, "123", "JPA", 2020, "x", "x");
+        lectureService.updateLecture(findLecture.getId(), professorId, "123", "JPA", "2020", "x", "x");
 
         //then
         Assert.assertEquals("수정 완료", "JPA", lecture.getLectureName());
@@ -73,7 +74,7 @@ public class LectureServiceTest {
 
     private Long createMajor() {
         Major major = new Major();
-        major.setMajorName("컴퓨터공학과");
+        major.setMajorCode(MajorCode.ACS);
         return majorService.save(major);
     }
 

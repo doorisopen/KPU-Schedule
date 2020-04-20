@@ -8,14 +8,16 @@
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
-            <label th:for="name">전공명</label>
-            <input type="text" th:field="*{majorName}" class="form-control"
-                   placeholder="전공명을 입력하세요" />
-        </div>
-        <div class="form-group">
             <label th:for="majorCode">전공 코드</label>
-            <input type="text" th:field="*{majorCode}" class="form-control"
-                   placeholder="전공 코드을 입력하세요" />
+<!--            <input type="text" th:field="*{majorCode}" class="form-control"-->
+<!--                   placeholder="전공 코드을 입력하세요" />-->
+            <select th:field="*{majorCode}" class="form-control">
+                <option value="">전공 코드</option>
+                <option th:each="status : ${T(kpuapi.kpulecture.domain.MajorCode).values()}"
+                        th:value="${status.code}"
+                        th:text="${status.name}">option
+                </option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -13,16 +13,11 @@ public class Major {
     @Column(name = "major_id")
     private Long id;
 
-    private String majorCode;
-    private String majorName;
-
-//    @OneToOne(mappedBy = "major", fetch = FetchType.LAZY)
-//    private Professor professor;
-
+    @Enumerated(EnumType.STRING)
+    private MajorCode majorCode;
 
     //==비즈니스 로직==//
-    public void change(String majorName, String majorCode) {
-        this.setMajorName(majorName);
+    public void change(MajorCode majorCode) {
         this.setMajorCode(majorCode);
     }
 }

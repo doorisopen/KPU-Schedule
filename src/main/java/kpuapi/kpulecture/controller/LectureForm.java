@@ -18,7 +18,7 @@ public class LectureForm {
 
     private Long professorId;
 
-    private int semester;
+    private String lectureSemester;
     private String lectureDate;
     private String lectureRoom;
 }
