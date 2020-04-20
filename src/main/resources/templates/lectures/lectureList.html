@@ -26,6 +26,10 @@
                 <td th:text="${lecture.professor.professorName}"></td>
                 <td th:text="${lecture.lectureDate}"></td>
                 <td th:text="${lecture.lectureRoom}"></td>
+                <td>
+                    <a href="#" th:href="@{/lectures/{id}/edit (id=${lecture.id})}"
+                       class="btn btn-primary" role="button">수정</a>
+                </td>
             </tr>
             </tbody>
         </table>

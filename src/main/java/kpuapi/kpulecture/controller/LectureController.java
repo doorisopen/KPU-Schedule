@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -59,4 +57,30 @@ public class LectureController {
         return "lectures/lectureList";
     }
 
+    @GetMapping("lectures/{lectureId}/edit")
+    public String updateLectureForm(@PathVariable("lectureId") Long lectureId, Model model) {
+        Lecture lecture = lectureService.findOne(lectureId);
+        List<Professor> professors = professorService.findProfessors();
+
+        LectureForm form = new LectureForm();
+        form.setId(lectureId);
+        form.setLectureCode(lecture.getLectureCode());
+        form.setLectureName(lecture.getLectureName());
+        form.setProfessorId(lecture.getProfessor().getId());
+        form.setSemester(lecture.getSemester());
+        form.setLectureDate(lecture.getLectureDate());
+        form.setLectureRoom(lecture.getLectureRoom());
+
+        model.addAttribute("form", form);
+        model.addAttribute("professors", professors);
+
+        return "lectures/updateLectureForm";
+    }
+
+    @PostMapping("lectures/{lectureId}/edit")
+    public String updateLecture(@PathVariable("lectureId") Long lectureId, @ModelAttribute("form") LectureForm form) {
+        lectureService.updateLecture(lectureId, form.getProfessorId(), form.getLectureCode(), form.getLectureName(),
+                form.getSemester(), form.getLectureDate(), form.getLectureRoom());
+        return "redirect:/";
+    }
 }

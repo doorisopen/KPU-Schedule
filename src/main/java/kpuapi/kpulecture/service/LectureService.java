@@ -21,7 +21,7 @@ public class LectureService {
     @Transactional
     public Long saveLecture(Lecture lecture, Long professorId) {
 
-        // 교수 찾기
+        //교수 찾기
         Professor professor = professorRepository.findOne(professorId);
         lecture.setProfessor(professor);
 
@@ -30,9 +30,16 @@ public class LectureService {
     }
 
     @Transactional
-    public void updateLecture(Long lectureId, String lectureCode, String lectureName, String lecturDate, String lecturRoom) {
+    public void updateLecture(Long lectureId, Long professorId, String lectureCode,
+                              String lectureName, int semester, String lecturDate, String lecturRoom) {
+        //강의 찾기
         Lecture findLecture = lectureRepository.findOne(lectureId);
-        findLecture.change(lectureCode, lectureName, lecturDate, lecturRoom);
+
+        //교수 찾기
+        Professor findProfessor = professorRepository.findOne(professorId);
+
+        //강의 수정
+        findLecture.change(lectureCode, lectureName, findProfessor, semester, lecturDate, lecturRoom);
     }
 
     public List<Lecture> findLecture() {

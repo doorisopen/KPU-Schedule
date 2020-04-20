@@ -58,7 +58,7 @@ public class LectureServiceTest {
 
         //when
         Lecture findLecture = lectureService.findOne(saveId);
-        lectureService.updateLecture(findLecture.getId(), "x", "JPA", "123", "aab");
+        lectureService.updateLecture(findLecture.getId(), professorId, "123", "JPA", 2020, "x", "x");
 
         //then
         Assert.assertEquals("수정 완료", "JPA", lecture.getLectureName());

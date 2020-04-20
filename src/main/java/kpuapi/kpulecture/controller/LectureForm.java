@@ -8,11 +8,15 @@ import javax.validation.constraints.NotEmpty;
 @Getter @Setter
 public class LectureForm {
 
+    private Long id;
+
     @NotEmpty(message = "강의 코드는 필수 입니다.")
     private String lectureCode;
 
     @NotEmpty(message = "강의명은 필수 입니다.")
     private String lectureName;
+
+    private Long professorId;
 
     private int semester;
     private String lectureDate;
