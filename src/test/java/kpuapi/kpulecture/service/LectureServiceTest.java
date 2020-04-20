@@ -1,6 +1,8 @@
 package kpuapi.kpulecture.service;
 
 import kpuapi.kpulecture.domain.Lecture;
+import kpuapi.kpulecture.domain.Major;
+import kpuapi.kpulecture.domain.Professor;
 import kpuapi.kpulecture.repository.LectureRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,34 +22,39 @@ import static org.junit.Assert.*;
 @Transactional
 public class LectureServiceTest {
 
-    @Autowired
-    LectureRepository lectureRepository;
-
-    @Autowired
-    LectureService lectureService;
-
-    @Autowired
-    EntityManager em;
+    @Autowired LectureRepository lectureRepository;
+    @Autowired LectureService lectureService;
+    @Autowired MajorService majorService;
+    @Autowired ProfessorService professorService;
+    @Autowired EntityManager em;
 
     @Test
     public void 강의등록() throws Exception {
         //given
+        Long majorId = createMajor();
+        Long professorId = createProfessor(majorId);
+
         Lecture lecture = new Lecture();
         lecture.setLectureName("스프링부트");
 
         //when
-        Long saveId = lectureService.saveLecture(lecture);
+        Long saveId = lectureService.saveLecture(lecture, professorId);
 
         //then
         assertEquals(lecture, lectureRepository.findOne(saveId));
     }
 
+
+
     @Test
     public void 강의_수정_테스트() throws Exception {
         //given
+        Long majorId = createMajor();
+        Long professorId = createProfessor(majorId);
+
         Lecture lecture = new Lecture();
         lecture.setLectureName("스프링부트");
-        Long saveId = lectureService.saveLecture(lecture);
+        Long saveId = lectureService.saveLecture(lecture, professorId);
 
         //when
         Lecture findLecture = lectureService.findOne(saveId);
@@ -57,6 +64,15 @@ public class LectureServiceTest {
         Assert.assertEquals("수정 완료", "JPA", lecture.getLectureName());
     }
 
+    private Long createMajor() {
+        Major major = new Major();
+        major.setMajorName("컴퓨터공학과");
+        return majorService.save(major);
+    }
 
-
+    private Long createProfessor(Long majorId) {
+        Professor professor = new Professor();
+        professor.setProfessorName("홍길동");
+        return professorService.join(professor, majorId);
+    }
 }
