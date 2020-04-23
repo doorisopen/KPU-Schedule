@@ -1,5 +1,6 @@
 package kpuapi.kpulecture.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Professor {
     @JoinColumn(name = "major_id")
     private Major major;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "professor")
     private List<Lecture> lectures = new ArrayList<>();
 
