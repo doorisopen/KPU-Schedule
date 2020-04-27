@@ -3,11 +3,6 @@ package kpuapi.kpulecture.api.dto;
 import kpuapi.kpulecture.domain.Lecture;
 import kpuapi.kpulecture.domain.Professor;
 import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Getter
 public class LectureListResponseDto {

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ProfessorRepository {
+public class ProfessorJpaRepository {
 
     private final EntityManager em;
 

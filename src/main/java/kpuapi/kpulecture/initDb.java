@@ -1,10 +1,9 @@
 package kpuapi.kpulecture;
 
 import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.domain.Major;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.MajorRepository;
-import kpuapi.kpulecture.repository.ProfessorRepository;
+import kpuapi.kpulecture.repository.MajorJpaRepository;
+import kpuapi.kpulecture.repository.ProfessorJpaRepository;
 import kpuapi.kpulecture.scraping.CrawlingDto;
 import kpuapi.kpulecture.domain.MajorCode;
 import lombok.RequiredArgsConstructor;
@@ -177,8 +176,8 @@ public class initDb {
     static class InitService {
 
         private final EntityManager em;
-        private final ProfessorRepository professorRepository;
-        private final MajorRepository majorRepository;
+        private final ProfessorJpaRepository professorRepository;
+        private final MajorJpaRepository majorJpaRepository;
 
 
         public MajorCode findCode(String code) {

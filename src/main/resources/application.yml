@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/kpulecture;MVCC=TRUE
+    url: jdbc:h2:tcp://localhost/~/kpulecture;
     username: sa
     password:
     driver-class-name: org.h2.Driver

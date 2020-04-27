@@ -1,7 +1,7 @@
 package kpuapi.kpulecture;
 
 import kpuapi.kpulecture.domain.Member;
-import kpuapi.kpulecture.repository.MemberRepository;
+import kpuapi.kpulecture.repository.MemberJpaRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MemberRepositoryTest {
+public class MemberJpaRepositoryTest {
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberJpaRepository memberJpaRepository;
 
     @Test
     @Transactional
@@ -25,9 +25,9 @@ public class MemberRepositoryTest {
     public void testMember() {
         Member member = new Member();
         member.setName("MemberA");
-        long savedId = memberRepository.save(member);
+        long savedId = memberJpaRepository.save(member);
 
-        Member findMember = memberRepository.find(savedId);
+        Member findMember = memberJpaRepository.find(savedId);
 
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
         Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());

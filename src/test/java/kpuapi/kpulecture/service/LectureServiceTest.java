@@ -4,13 +4,12 @@ import kpuapi.kpulecture.domain.Lecture;
 import kpuapi.kpulecture.domain.Major;
 import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.LectureRepository;
+import kpuapi.kpulecture.repository.LectureJpaRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,8 @@ import static org.junit.Assert.*;
 @Transactional
 public class LectureServiceTest {
 
-    @Autowired LectureRepository lectureRepository;
+    @Autowired
+    LectureJpaRepository lectureJpaRepository;
     @Autowired LectureService lectureService;
     @Autowired MajorService majorService;
     @Autowired ProfessorService professorService;
@@ -46,7 +46,7 @@ public class LectureServiceTest {
         Long saveId = lectureService.save(lecture, professorId);
 
         //then
-        assertEquals(lecture, lectureRepository.findOne(saveId));
+        assertEquals(lecture, lectureJpaRepository.findOne(saveId));
     }
 
 

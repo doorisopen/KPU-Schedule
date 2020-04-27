@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MajorRepository {
+public class MajorJpaRepository {
 
     private final EntityManager em;
 

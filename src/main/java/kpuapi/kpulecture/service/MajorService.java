@@ -2,7 +2,7 @@ package kpuapi.kpulecture.service;
 
 import kpuapi.kpulecture.domain.Major;
 import kpuapi.kpulecture.domain.MajorCode;
-import kpuapi.kpulecture.repository.MajorRepository;
+import kpuapi.kpulecture.repository.MajorJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,26 +14,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MajorService {
 
-    private final MajorRepository majorRepository;
+    private final MajorJpaRepository majorJpaRepository;
 
 
     @Transactional
     public Long save(Major major) {
-        majorRepository.save(major);
+        majorJpaRepository.save(major);
         return major.getId();
     }
 
     public List<Major> findMajor() {
-        return majorRepository.findAll();
+        return majorJpaRepository.findAll();
     }
 
     public Major findOne(Long majorId) {
-        return majorRepository.findOne(majorId);
+        return majorJpaRepository.findOne(majorId);
     }
 
     @Transactional
     public void updateMajor(Long majorId, MajorCode majorCode) {
-        Major findMajor = majorRepository.findOne(majorId);
+        Major findMajor = majorJpaRepository.findOne(majorId);
         findMajor.change(majorCode);
     }
 }

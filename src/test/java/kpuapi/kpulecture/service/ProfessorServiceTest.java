@@ -3,7 +3,7 @@ package kpuapi.kpulecture.service;
 import kpuapi.kpulecture.domain.Major;
 import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.ProfessorRepository;
+import kpuapi.kpulecture.repository.ProfessorJpaRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,8 @@ import static org.junit.Assert.*;
 @Transactional
 public class ProfessorServiceTest {
 
-    @Autowired ProfessorRepository professorRepository;
+    @Autowired
+    ProfessorJpaRepository professorJpaRepository;
     @Autowired ProfessorService professorService;
     @Autowired MajorService majorService;
     @Autowired
@@ -47,7 +48,7 @@ public class ProfessorServiceTest {
         em.flush();
 
         //then
-        assertEquals(professor, professorRepository.findOne(saveId));
+        assertEquals(professor, professorJpaRepository.findOne(saveId));
     }
 
     /**

@@ -2,11 +2,9 @@ package kpuapi.kpulecture.service;
 
 import kpuapi.kpulecture.domain.Major;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.MajorRepository;
-import kpuapi.kpulecture.repository.ProfessorRepository;
-import lombok.NoArgsConstructor;
+import kpuapi.kpulecture.repository.MajorJpaRepository;
+import kpuapi.kpulecture.repository.ProfessorJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProfessorService {
 
-    private final ProfessorRepository professorRepository;
-    private final MajorRepository majorRepository;
+    private final ProfessorJpaRepository professorJpaRepository;
+    private final MajorJpaRepository majorJpaRepository;
 
     /**
      * 교수 등록
@@ -30,10 +28,10 @@ public class ProfessorService {
         validateDuplicateProfessor(professor); // 중복 등록 검증
 
         // 전공 정보 등록
-        Major major = majorRepository.findOne(majorId);
+        Major major = majorJpaRepository.findOne(majorId);
         professor.setMajor(major);
 
-        professorRepository.save(professor);
+        professorJpaRepository.save(professor);
         return professor.getId();
     }
 
@@ -42,7 +40,7 @@ public class ProfessorService {
      * @param professor
      */
     private void validateDuplicateProfessor(Professor professor) {
-        List<Professor> findProfessors = professorRepository.findByProfessorName(professor.getProfessorName());
+        List<Professor> findProfessors = professorJpaRepository.findByProfessorName(professor.getProfessorName());
         if(!findProfessors.isEmpty()) {
             throw new IllegalStateException("이미 등록된 정보입니다.");
         }
@@ -53,7 +51,7 @@ public class ProfessorService {
      * @return professor list
      */
     public List<Professor> findProfessors() {
-        return professorRepository.findAll();
+        return professorJpaRepository.findAll();
     }
 
     /**
@@ -62,6 +60,6 @@ public class ProfessorService {
      * @return professor
      */
     public Professor findOne(Long professorId) {
-        return professorRepository.findOne(professorId);
+        return professorJpaRepository.findOne(professorId);
     }
 }

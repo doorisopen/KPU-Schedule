@@ -2,8 +2,8 @@ package kpuapi.kpulecture.api;
 
 import kpuapi.kpulecture.api.dto.LectureListResponseDto;
 import kpuapi.kpulecture.domain.Lecture;
+import kpuapi.kpulecture.repository.LectureJpaRepository;
 import kpuapi.kpulecture.repository.LectureRepository;
-import kpuapi.kpulecture.repository.ProfessorRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LectureApiController {
 
+    private final LectureJpaRepository lectureJpaRepository;
     private final LectureRepository lectureRepository;
 
     @GetMapping("/api/v1/lectures")
