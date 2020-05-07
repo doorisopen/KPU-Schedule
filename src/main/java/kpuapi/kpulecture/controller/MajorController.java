@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.controller;
 
 import kpuapi.kpulecture.domain.Major;
+import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.service.MajorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class MajorController {
 
     @PostMapping("/majors/new")
     public String create(MajorForm form) {
-        Major major = new Major();
+        Major major = new Major(MajorCode.ACS);
         major.setMajorCode(form.getMajorCode());
 
         majorService.save(major);

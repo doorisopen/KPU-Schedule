@@ -6,18 +6,15 @@ import kpuapi.kpulecture.domain.MajorCode;
 import kpuapi.kpulecture.domain.Professor;
 import kpuapi.kpulecture.repository.LectureJpaRepository;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class LectureServiceTest {
@@ -73,8 +70,7 @@ public class LectureServiceTest {
     }
 
     private Long createMajor() {
-        Major major = new Major();
-        major.setMajorCode(MajorCode.ACS);
+        Major major = new Major(MajorCode.ACS);
         return majorService.save(major);
     }
 

@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local # local:로컬서버, dev:개발서버, real:실제서버
   datasource:
     url: jdbc:h2:tcp://localhost/~/kpulecture;
     username: sa
