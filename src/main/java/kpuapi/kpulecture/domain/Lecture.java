@@ -1,13 +1,14 @@
 package kpuapi.kpulecture.domain;
 
+import kpuapi.kpulecture.controller.form.LectureForm;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC) // 생성자 접근 권한 설정: 테스트를 위해 임시로 Public, 의도한 코드는 PROTECTED
 @Getter @Setter
+@ToString
 public class Lecture {
 
     @Id
@@ -35,16 +36,19 @@ public class Lecture {
     }
 
     //==생성 메서드==//
-
+    public Lecture(String lectureName, Professor professor) {
+        this.lectureName = lectureName;
+        setProfessor(professor);
+    }
 
     //==비즈니스 로직==//
-    public void change(String lectureCode, String lectureName, Professor professor, String lectureSemester, String lectureDate, String lectureRoom) {
-        this.setLectureCode(lectureCode);
-        this.setLectureName(lectureName);
+    public void change(LectureForm form, Professor professor) {
+        this.setLectureCode(form.getLectureCode());
+        this.setLectureName(form.getLectureName());
+        this.setLectureSemester(form.getLectureSemester());
+        this.setLectureDate(form.getLectureDate());
+        this.setLectureRoom(form.getLectureRoom());
         this.setProfessor(professor);
-        this.setLectureSemester(lectureSemester);
-        this.setLectureDate(lectureDate);
-        this.setLectureRoom(lectureRoom);
     }
 
 }

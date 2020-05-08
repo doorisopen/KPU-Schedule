@@ -10,14 +10,16 @@
       <tr>
         <th>#</th>
         <th>이름</th>
-        <th>전공</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="professor : ${professors}">
         <td th:text="${professor.id}"></td>
         <td th:text="${professor.professorName}"></td>
-        <td th:text="${professor.major.majorCode.name}"></td>
+        <td>
+          <a href="#" th:href="@{/professors/{id}/edit (id=${professor.id})}"
+             class="btn btn-primary" role="button">수정</a>
+        </td>
       </tr>
       </tbody>
     </table>

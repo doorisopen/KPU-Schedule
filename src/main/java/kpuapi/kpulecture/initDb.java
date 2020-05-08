@@ -2,16 +2,16 @@ package kpuapi.kpulecture;
 
 import kpuapi.kpulecture.domain.Lecture;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.MajorJpaRepository;
-import kpuapi.kpulecture.repository.ProfessorJpaRepository;
+import kpuapi.kpulecture.repository.ProfessorRepository;
 import kpuapi.kpulecture.scraping.CrawlingDto;
-import kpuapi.kpulecture.domain.MajorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,8 +19,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class initDb {
@@ -171,54 +172,30 @@ public class initDb {
     }
 
     @Component
-    @Transactional
     @RequiredArgsConstructor
     static class InitService {
-
+        @PersistenceContext
         private final EntityManager em;
-        private final ProfessorJpaRepository professorRepository;
-        private final MajorJpaRepository majorJpaRepository;
+        private final ProfessorRepository professorRepository;
 
-
-        public MajorCode findCode(String code) {
-            for (MajorCode value : MajorCode.values()) {
-                if(value.getCode().equals(code)) {
-                    return value;
-                }
-            }
-            return null;
-        }
         /**
          * Major 데이터 체크 -> Professor 데이터 체크 -> Lecture 등록
-         *
          */
+        @Transactional
         public void saveData(CrawlingDto crawlingDto) {
             Lecture lecture = new Lecture();
-//            Major major = new Major();
-            Professor professor = new Professor();
 
-            //전공 찾기
-//            String code = crawlingDto.getLectureCode().substring(0,3);
-//            List<Major> majors = majorRepository.findByMajorCode(code);
-//            if (majors.isEmpty() && findCode(code) != null) {
-//                if(findCode(code) != null) {
-//                    major.setMajorCode(findCode(code));
-//                    em.persist(major);
-//                }
-//            }
 
             //교수 데이터 체크
             List<Professor> findProfessors = professorRepository.findByProfessorName(crawlingDto.getProfessorName());
 
             if(findProfessors.isEmpty()) {
-                professor.setProfessorName(crawlingDto.getProfessorName());
-//                professor.setMajor(major);
+                Professor professor = new Professor(crawlingDto.getProfessorName());
                 em.persist(professor);
-
                 lecture.setProfessor(professor);
             } else {
-                Professor findProfessor = professorRepository.findOne(findProfessors.get(0).getId());
-                lecture.setProfessor(findProfessor);
+                Optional<Professor> findProfessor = professorRepository.findById(findProfessors.get(0).getId());
+                lecture.setProfessor(findProfessor.get());
             }
             //강의 등록
             lecture.setLectureCode(crawlingDto.getLectureCode());

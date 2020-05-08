@@ -1,4 +1,4 @@
-package kpuapi.kpulecture.controller;
+package kpuapi.kpulecture.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Professor {
 
     @Id
@@ -20,14 +22,15 @@ public class Professor {
 
     private String professorName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "major_id")
-    private Major major;
-
     @JsonIgnore
     @OneToMany(mappedBy = "professor")
     private List<Lecture> lectures = new ArrayList<>();
 
-    //==연관관계 메서드==//
+    public Professor(String professorName) {
+        this.professorName = professorName;
+    }
 
+    public void changeProfessorName(String professorName) {
+        this.setProfessorName(professorName);
+    }
 }

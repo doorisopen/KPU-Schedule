@@ -1,58 +1,43 @@
 package kpuapi.kpulecture.service;
 
+import kpuapi.kpulecture.controller.form.LectureForm;
 import kpuapi.kpulecture.domain.Lecture;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.LectureJpaRepository;
-import kpuapi.kpulecture.repository.ProfessorJpaRepository;
+import kpuapi.kpulecture.repository.LectureRepository;
+import kpuapi.kpulecture.repository.ProfessorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class LectureService {
 
-    private final LectureJpaRepository lectureJpaRepository;
-    private final ProfessorJpaRepository professorJpaRepository;
+    private final LectureRepository lectureRepository;
+    private final ProfessorRepository professorRepository;
 
     @Transactional
-    public Long save(Lecture lecture, Long professorId) {
+    public void save(LectureForm form) {
+        Lecture lecture = new Lecture();
+        lecture.setLectureCode(form.getLectureCode());
+        lecture.setLectureName(form.getLectureName());
+        lecture.setLectureSemester(form.getLectureSemester());
+        lecture.setLectureDate(form.getLectureDate());
+        lecture.setLectureRoom(form.getLectureRoom());
 
-        //교수 찾기
-        Professor professor = professorJpaRepository.findOne(professorId);
-        lecture.setProfessor(professor);
+        //교수 등록
+        Optional<Professor> findProfessor = professorRepository.findById(form.getProfessorId());
+        lecture.setProfessor(findProfessor.get());
 
-        lectureJpaRepository.save(lecture);
-        return lecture.getId();
+        lectureRepository.save(lecture);
     }
 
     @Transactional
-    public void updateLecture(Long lectureId, Long professorId, String lectureCode,
-                              String lectureName, String semester, String lectureDate, String lectureRoom) {
-        //강의 찾기
-        Lecture findLecture = lectureJpaRepository.findOne(lectureId);
-
-        //교수 찾기
-        Professor findProfessor = professorJpaRepository.findOne(professorId);
-
-        //강의 수정
-        findLecture.change(lectureCode, lectureName, findProfessor, semester, lectureDate, lectureRoom);
+    public void updateLecture(Long lectureId, LectureForm form) {
+        Optional<Lecture> findLecture = lectureRepository.findById(lectureId);
+        Optional<Professor> findProfessor = professorRepository.findById(form.getProfessorId());
+        findLecture.get().change(form, findProfessor.get());
     }
-
-    // N + 1 발생 -> join fetch 로 성능 개선...
-    public List<Lecture> findLecture() {
-        return lectureJpaRepository.findAll();
-    }
-
-    public List<Lecture> findLectureWithProfessor() {
-        return lectureJpaRepository.findAllWithProfessor();
-    }
-
-    public Lecture findOne(Long lectureId) {
-        return lectureJpaRepository.findOne(lectureId);
-    }
-
 }

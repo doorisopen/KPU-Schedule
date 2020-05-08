@@ -1,58 +1,75 @@
 package kpuapi.kpulecture.controller;
 
+import kpuapi.kpulecture.controller.form.ProfessorForm;
 import kpuapi.kpulecture.domain.Major;
 import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.service.MajorService;
+import kpuapi.kpulecture.repository.MajorRepository;
+import kpuapi.kpulecture.repository.ProfessorRepository;
 import kpuapi.kpulecture.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class ProfessorController {
 
     private final ProfessorService professorService;
-    private final MajorService majorService;
+    private final ProfessorRepository professorRepository;
+    private final MajorRepository majorRepository;
 
     @GetMapping("/professors/new")
     public String createForm(Model model) {
-        List<Major> majors = majorService.findMajor();
-
+        List<Major> majors = majorRepository.findAll();
         model.addAttribute("form", new ProfessorForm());
-        model.addAttribute("majors", majors);
 
         return "professors/createProfessorForm";
     }
 
     @PostMapping("/professors/new")
-    public String create(@RequestParam("majorId") Long majorId,
-                         @Valid ProfessorForm form, BindingResult result) {
+    public String create(@Valid ProfessorForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "professors/createProfessorForm";
         }
-
-        Professor professor = new Professor();
-        professor.setProfessorName(form.getName());
-
-        professorService.join(professor, majorId);
+        Professor professor = new Professor(form.getProfessorName());
+        professorRepository.save(professor);
 
         return "redirect:/";
     }
 
     @GetMapping("/professors")
     public String list(Model model) {
-        List<Professor> professors = professorService.findProfessors();
+        List<Professor> professors = professorRepository.findAll();
         model.addAttribute("professors", professors);
+
         return "professors/professorList";
     }
 
+    @GetMapping("professors/{professorId}/edit")
+    public String updateProfessorForm(@PathVariable("professorId") Long professorId, Model model) {
+        Optional<Professor> findProfessor = professorRepository.findById(professorId);
+
+        ProfessorForm form = new ProfessorForm();
+        form.setId(professorId);
+        form.setProfessorName(findProfessor.get().getProfessorName());
+
+        model.addAttribute("form", form);
+
+        return "professors/updateProfessorForm";
+    }
+
+    @PostMapping("professors/{professorId}/edit")
+    public String updateProfessor(@PathVariable("professorId") Long professorId,
+                                  @ModelAttribute("form") ProfessorForm form) {
+        professorService.changeProfessorName(professorId, form.getProfessorName());
+
+        return "redirect:/";
+    }
 }
