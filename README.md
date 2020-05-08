@@ -7,10 +7,12 @@
 * renew date: 2020.04.16 ~
 
 ## 프로젝트 환경
-* Spring Boot 2.1.9
+* Spring Boot 2.2.6
 * Gradle
 * JPA
-* H2
+* Querydsl
+* junit5
+* H2, MySQL
 * lombok
 * thymeleaf
 
@@ -39,7 +41,18 @@
   + [x] 전공 기능
 * [ ] API 개발
   + [ ] 강의 조회 API
-
+  + [ ] 강의 검색
+  + [ ] 게시판 REST API
+    - [ ] 등록
+    - [ ] 조회
+    - [ ] 수정
+    - [ ] 삭제
+* [ ] 소셜 로그인
+  + [ ] 구글
+  + [ ] 네이버
+* [ ] 배포
+  + [ ] Travis CI/CD
+  + [ ] Nginx 무중단배포
 
 ## Info
 애플리케이션 아키텍처
