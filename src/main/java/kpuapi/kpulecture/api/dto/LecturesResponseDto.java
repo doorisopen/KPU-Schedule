@@ -5,7 +5,7 @@ import kpuapi.kpulecture.domain.Professor;
 import lombok.Getter;
 
 @Getter
-public class LectureListResponseDto {
+public class LecturesResponseDto {
 
     private Long id;
     private int lectureYear;
@@ -19,7 +19,7 @@ public class LectureListResponseDto {
     private String lectureDate;
     private String lectureRoom;
 
-    public LectureListResponseDto(Lecture entity) {
+    public LecturesResponseDto(Lecture entity) {
         this.id = entity.getId();
         this.lectureYear = entity.getLectureYear();
         this.lectureSemester = entity.getLectureSemester();

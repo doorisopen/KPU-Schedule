@@ -20,19 +20,26 @@ public class Lecture {
     private String lectureName;
     private String lectureGubun;
     private int lectureYear;
+    private String lectureSemester;
+    private String lectureDate;
+    private String lectureRoom;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
-    private String lectureSemester;
-    private String lectureDate;
-    private String lectureRoom;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "major_id")
+    private Major major;
 
     //==연관관계 메서드==//
     public void setProfessor(Professor professor) {
         this.professor = professor;
         professor.getLectures().add(this);
+    }
+    public void setMajor(Major major) {
+        this.major = major;
+        major.getLectures().add(this);
     }
 
     //==생성 메서드==//
@@ -50,5 +57,4 @@ public class Lecture {
         this.setLectureRoom(form.getLectureRoom());
         this.setProfessor(professor);
     }
-
 }

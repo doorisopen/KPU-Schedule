@@ -1,11 +1,15 @@
 package kpuapi.kpulecture.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * majorName        majorCode
  * 기계공학과       	 :AME
@@ -24,16 +28,24 @@ import javax.persistence.*;
  */
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Major {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "major_id")
     private Long id;
 
     private String majorName;
     private String majorCode;
 
+    @OneToMany(mappedBy = "major")
+    private List<Professor> professors = new ArrayList<>();
+
+    @OneToMany(mappedBy = "major")
+    private List<Lecture> lectures = new ArrayList<>();
+
+    //==생성 메서드==//
     public Major(String majorName) {
         this.majorName = majorName;
     }
