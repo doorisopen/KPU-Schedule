@@ -1,13 +1,12 @@
-package kpuapi.kpulecture.service;
+package kpuapi.kpulecture.service.school;
 
 import kpuapi.kpulecture.controller.form.MajorForm;
-import kpuapi.kpulecture.domain.Major;
-import kpuapi.kpulecture.repository.MajorRepository;
+import kpuapi.kpulecture.domain.school.Major;
+import kpuapi.kpulecture.domain.school.MajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

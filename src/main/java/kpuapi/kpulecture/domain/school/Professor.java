@@ -1,4 +1,4 @@
-package kpuapi.kpulecture.domain;
+package kpuapi.kpulecture.domain.school;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.jdo.annotations.Join;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

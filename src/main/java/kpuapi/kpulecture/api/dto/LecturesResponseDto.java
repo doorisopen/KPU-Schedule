@@ -1,7 +1,7 @@
 package kpuapi.kpulecture.api.dto;
 
-import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.domain.Professor;
+import kpuapi.kpulecture.domain.school.Lecture;
+import kpuapi.kpulecture.domain.school.Professor;
 import lombok.Getter;
 
 @Getter

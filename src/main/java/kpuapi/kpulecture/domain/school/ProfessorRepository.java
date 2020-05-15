@@ -1,11 +1,10 @@
-package kpuapi.kpulecture.repository;
+package kpuapi.kpulecture.domain.school;
 
-import kpuapi.kpulecture.domain.Professor;
-import lombok.RequiredArgsConstructor;
+import kpuapi.kpulecture.domain.school.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import javax.persistence.EntityManager;
+
 import java.util.List;
 
 @Repository

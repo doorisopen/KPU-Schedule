@@ -1,4 +1,4 @@
-package kpuapi.kpulecture.domain;
+package kpuapi.kpulecture.domain.school;
 
 import kpuapi.kpulecture.controller.form.LectureForm;
 import lombok.*;

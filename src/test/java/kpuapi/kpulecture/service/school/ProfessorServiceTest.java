@@ -1,9 +1,7 @@
-package kpuapi.kpulecture.service;
+package kpuapi.kpulecture.service.school;
 
-import kpuapi.kpulecture.domain.Major;
-import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.MajorRepository;
-import kpuapi.kpulecture.repository.ProfessorRepository;
+import kpuapi.kpulecture.domain.school.Professor;
+import kpuapi.kpulecture.service.school.ProfessorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +15,8 @@ import static org.junit.Assert.*;
 @Transactional
 public class ProfessorServiceTest {
 
-    @Autowired ProfessorService professorService;
+    @Autowired
+    ProfessorService professorService;
     @Autowired EntityManager em;
 
     /**

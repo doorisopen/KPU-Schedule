@@ -1,6 +1,6 @@
-package kpuapi.kpulecture.repository;
+package kpuapi.kpulecture.domain.school;
 
-import kpuapi.kpulecture.domain.Lecture;
+import kpuapi.kpulecture.domain.school.Lecture;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

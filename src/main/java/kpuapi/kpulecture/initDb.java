@@ -1,8 +1,8 @@
 package kpuapi.kpulecture;
 
-import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.ProfessorRepository;
+import kpuapi.kpulecture.domain.school.Lecture;
+import kpuapi.kpulecture.domain.school.Professor;
+import kpuapi.kpulecture.domain.school.ProfessorRepository;
 import kpuapi.kpulecture.scraping.CrawlingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;

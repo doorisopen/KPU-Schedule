@@ -2,11 +2,10 @@ package kpuapi.kpulecture;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.domain.Professor;
+import kpuapi.kpulecture.domain.school.Lecture;
+import kpuapi.kpulecture.domain.school.Professor;
 import kpuapi.kpulecture.domain.QLecture;
-import kpuapi.kpulecture.domain.QProfessor;
-import kpuapi.kpulecture.repository.LectureQueryRepository;
+import kpuapi.kpulecture.domain.school.LectureQueryRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,11 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import java.util.List;
-
-import static kpuapi.kpulecture.domain.QLecture.*;
-import static kpuapi.kpulecture.domain.QProfessor.professor;
 
 @SpringBootTest
 @Transactional

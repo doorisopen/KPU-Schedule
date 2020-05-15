@@ -1,13 +1,9 @@
-package kpuapi.kpulecture.repository;
+package kpuapi.kpulecture.domain.school;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.domain.QLecture;
-import kpuapi.kpulecture.domain.QProfessor;
+import kpuapi.kpulecture.domain.school.Lecture;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static kpuapi.kpulecture.domain.QLecture.lecture;

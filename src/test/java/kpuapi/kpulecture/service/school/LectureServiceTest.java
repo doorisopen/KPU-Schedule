@@ -1,12 +1,12 @@
-package kpuapi.kpulecture.service;
+package kpuapi.kpulecture.service.school;
 
 import kpuapi.kpulecture.controller.form.LectureForm;
-import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.domain.Major;
-import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.LectureRepository;
-import kpuapi.kpulecture.repository.MajorRepository;
-import kpuapi.kpulecture.repository.ProfessorRepository;
+import kpuapi.kpulecture.domain.school.Lecture;
+import kpuapi.kpulecture.domain.school.Major;
+import kpuapi.kpulecture.domain.school.Professor;
+import kpuapi.kpulecture.domain.school.LectureRepository;
+import kpuapi.kpulecture.domain.school.MajorRepository;
+import kpuapi.kpulecture.domain.school.ProfessorRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

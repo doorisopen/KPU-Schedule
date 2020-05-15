@@ -1,9 +1,9 @@
 package kpuapi.kpulecture.api;
 
 import kpuapi.kpulecture.api.dto.LecturesResponseDto;
-import kpuapi.kpulecture.domain.Lecture;
-import kpuapi.kpulecture.repository.LectureQueryRepository;
-import kpuapi.kpulecture.repository.LectureRepository;
+import kpuapi.kpulecture.domain.school.Lecture;
+import kpuapi.kpulecture.domain.school.LectureQueryRepository;
+import kpuapi.kpulecture.domain.school.LectureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

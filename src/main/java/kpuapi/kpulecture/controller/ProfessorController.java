@@ -1,11 +1,11 @@
 package kpuapi.kpulecture.controller;
 
 import kpuapi.kpulecture.controller.form.ProfessorForm;
-import kpuapi.kpulecture.domain.Major;
-import kpuapi.kpulecture.domain.Professor;
-import kpuapi.kpulecture.repository.MajorRepository;
-import kpuapi.kpulecture.repository.ProfessorRepository;
-import kpuapi.kpulecture.service.ProfessorService;
+import kpuapi.kpulecture.domain.school.Major;
+import kpuapi.kpulecture.domain.school.Professor;
+import kpuapi.kpulecture.domain.school.MajorRepository;
+import kpuapi.kpulecture.domain.school.ProfessorRepository;
+import kpuapi.kpulecture.service.school.ProfessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

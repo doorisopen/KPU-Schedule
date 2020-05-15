@@ -1,6 +1,5 @@
-package kpuapi.kpulecture.domain;
+package kpuapi.kpulecture.domain.school;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
