@@ -22,22 +22,22 @@ public class LectureApiController {
     @GetMapping("/api/v1/lectures")
     public Result lectureV1() {
         List<Lecture> findLectureAllWithProfessor = lectureRepository.findLectureFetchJoin();
-        List<LecturesResponseDto> collect = findLectureAllWithProfessor.stream()
+        List<LecturesResponseDto> resultList = findLectureAllWithProfessor.stream()
                 .map(o -> new LecturesResponseDto(o))
                 .collect(Collectors.toList());
 
-        return new Result(HttpStatus.OK, collect);
+        return new Result(HttpStatus.OK, resultList);
     }
 
     //==Querydsl==//
     @GetMapping("/api/v2/lectures")
     public Result lectureV2() {
         List<Lecture> findLecturesWithProfessor = lectureQueryRepository.findLecturesWithProfessor();
-        List<LecturesResponseDto> collect = findLecturesWithProfessor.stream()
+        List<LecturesResponseDto> resultList = findLecturesWithProfessor.stream()
                 .map(o -> new LecturesResponseDto(o))
                 .collect(Collectors.toList());
 
-        return new Result(HttpStatus.OK, collect);
+        return new Result(HttpStatus.OK, resultList);
     }
 
 }
