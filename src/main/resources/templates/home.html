@@ -16,14 +16,14 @@
     <div class="jumbotron">
         <h1>Post API TEST</h1>
         <p>
-            <span class="badge badge-success">REST API</span>
+            <span class="badge badge-success">API ON</span>
         </p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/posts">게시글 목록</a>
         </p>
         <h1>School API TEST</h1>
         <p>
-            <span class="badge badge-danger">REST API</span>
+            <span class="badge badge-danger">API OFF</span>
         </p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/professors/new">교수 가입</a>
@@ -39,26 +39,36 @@
         </p>
     </div>
 
-
     <div th:replace="fragments/footer :: footer" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load('current', {packages: ['corechart', 'line']});
-        google.charts.setOnLoadCallback(drawBasic);
-        function drawBasic() {
+        google.charts.setOnLoadCallback(drawChart);
+        var gbl_data;
+        //Load Data
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/usage',
+            dataType: 'json',
+            success: function (data) {
+                gbl_data = data;
+            },
+            error: function (xhr) {
+                alert('server msg : ' + xhr.status)
+            }
+        });
+        function drawChart() {
             var data = new google.visualization.DataTable();
             data.addColumn('date', 'Month');
             data.addColumn('number', 'Usage');
-            data.addRows([
-                [new Date(2020, 4, 1), 57],
-                [new Date(2020, 4, 2), 27],
-                [new Date(2020, 4, 3), 51],
-                [new Date(2020, 4, 4), 47],
-                [new Date(2020, 4, 10), 37]
-            ]);
+
+            for (var i = 0;  i < gbl_data.data.length; i++) {
+                data.addRows([ [new Date(gbl_data.data[i].date), gbl_data.data[i].used] ]);
+            }
+
             var options = {
-                hAxis: {
-                },
+                hAxis: {},
                 vAxis: {
                     title: 'Usage'
                 },

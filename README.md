@@ -48,7 +48,7 @@
     - [x] 수정
     - [x] 삭제
 * [x] API Usage Chart
-  + [ ] Data Binding
+  + [x] Data Binding
 * [ ] 소셜 로그인
   + [ ] 구글
   + [ ] 네이버
