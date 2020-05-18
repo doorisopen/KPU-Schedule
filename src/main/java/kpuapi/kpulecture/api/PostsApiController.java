@@ -18,6 +18,15 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
+    @GetMapping("/api/v1/posts")
+    public Result findAll() {
+        List<Posts> list = postsService.findAll();
+        List<PostsResponseDto> resultList = list.stream()
+                .map(o -> new PostsResponseDto(o))
+                .collect(Collectors.toList());
+        return new Result(HttpStatus.OK, resultList);
+    }
+
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
@@ -28,17 +37,15 @@ public class PostsApiController {
         return postsService.update(id, requestDto);
     }
 
-    @GetMapping("/api/v1/posts")
-    public Result findAll() {
-        List<Posts> list = postsService.findAll();
-        List<PostsResponseDto> resultList = list.stream()
-                .map(o -> new PostsResponseDto(o))
-                .collect(Collectors.toList());
-        return new Result(HttpStatus.OK, resultList);
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
     }
+
 }

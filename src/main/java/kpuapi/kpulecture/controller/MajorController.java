@@ -25,14 +25,12 @@ public class MajorController {
     @GetMapping("/majors/new")
     public String createForm(Model model) {
         model.addAttribute("form", new MajorForm());
-
         return "majors/createMajorForm";
     }
 
     @PostMapping("/majors/new")
     public String create(MajorForm form) {
         majorService.save(form);
-
         return "redirect:/";
     }
 
