@@ -1,14 +1,15 @@
 package kpuapi.kpulecture.service.school;
 
+import kpuapi.kpulecture.api.dto.LecturesResponseDto;
 import kpuapi.kpulecture.controller.form.LectureForm;
-import kpuapi.kpulecture.domain.school.Lecture;
-import kpuapi.kpulecture.domain.school.Professor;
-import kpuapi.kpulecture.domain.school.LectureRepository;
-import kpuapi.kpulecture.domain.school.ProfessorRepository;
+import kpuapi.kpulecture.domain.school.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class LectureService {
 
     private final LectureRepository lectureRepository;
+    private final LectureQueryRepository lectureQueryRepository;
     private final ProfessorRepository professorRepository;
 
     @Transactional
@@ -39,5 +41,17 @@ public class LectureService {
         Optional<Lecture> findLecture = lectureRepository.findById(lectureId);
         Optional<Professor> findProfessor = professorRepository.findById(form.getProfessorId());
         findLecture.get().change(form, findProfessor.get());
+    }
+
+    public List<LecturesResponseDto> lecturesV1() {
+        return lectureRepository.findLectureFetchJoin().stream()
+                .map(LecturesResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<LecturesResponseDto> lecturesV2() {
+        return lectureQueryRepository.findLecturesWithProfessor().stream()
+                .map(LecturesResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

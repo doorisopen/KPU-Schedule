@@ -3,14 +3,11 @@ package kpuapi.kpulecture.api;
 import kpuapi.kpulecture.api.dto.PostsResponseDto;
 import kpuapi.kpulecture.api.dto.PostsSaveRequestDto;
 import kpuapi.kpulecture.api.dto.PostsUpdateRequestDto;
-import kpuapi.kpulecture.domain.posts.Posts;
 import kpuapi.kpulecture.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,11 +17,7 @@ public class PostsApiController {
 
     @GetMapping("/api/v1/posts")
     public Result findAll() {
-        List<Posts> list = postsService.findAll();
-        List<PostsResponseDto> resultList = list.stream()
-                .map(o -> new PostsResponseDto(o))
-                .collect(Collectors.toList());
-        return new Result(HttpStatus.OK, resultList);
+        return new Result(HttpStatus.OK, postsService.findAll());
     }
 
     @PostMapping("/api/v1/posts")

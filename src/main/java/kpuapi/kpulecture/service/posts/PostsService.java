@@ -8,11 +8,11 @@ import kpuapi.kpulecture.domain.posts.PostsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class PostsService {
 
@@ -39,8 +39,10 @@ public class PostsService {
         postsRepository.delete(posts);
     }
 
-    public List<Posts> findAll() {
-        return postsRepository.findAll();
+    public List<PostsResponseDto> findAll() {
+        return postsRepository.findAll().stream()
+                .map(PostsResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     public PostsResponseDto findById(Long id) {

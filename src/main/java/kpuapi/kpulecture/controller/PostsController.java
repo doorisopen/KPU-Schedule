@@ -2,15 +2,11 @@ package kpuapi.kpulecture.controller;
 
 import kpuapi.kpulecture.api.dto.PostsResponseDto;
 import kpuapi.kpulecture.api.dto.PostsSaveRequestDto;
-import kpuapi.kpulecture.api.dto.PostsUpdateRequestDto;
-import kpuapi.kpulecture.controller.form.LectureForm;
-import kpuapi.kpulecture.domain.posts.Posts;
 import kpuapi.kpulecture.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,9 +16,7 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String postsList(Model model) {
-        List<Posts> postsList = postsService.findAll();
-        model.addAttribute("posts", postsList);
-
+        model.addAttribute("posts", postsService.findAll());
         return "posts/postsList";
     }
 

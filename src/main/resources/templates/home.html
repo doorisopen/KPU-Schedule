@@ -7,28 +7,68 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="alert alert-info" role="alert" style="text-align: center">
+        <strong>API Usage Status</strong>
+    </div>
+    <div style="text-align: center">
+        <div id="chart_div" style="display: inline-block"></div>
+    </div>
     <div class="jumbotron">
-        <h1>KPU BOARD API</h1>
-        <p class="lead">게시판 기능</p>
+        <h1>Post API TEST</h1>
+        <p>
+            <span class="badge badge-success">REST API</span>
+        </p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/posts">게시글 목록</a>
         </p>
-        <h1>KPU LECTURE API</h1>
-        <p class="lead">교수 기능</p>
+        <h1>School API TEST</h1>
+        <p>
+            <span class="badge badge-danger">REST API</span>
+        </p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/professors/new">교수 가입</a>
             <a class="btn btn-lg btn-secondary" href="/professors">교수 목록</a>
         </p>
-        <p class="lead">강의 기능</p>
         <p>
             <a class="btn btn-lg btn-dark" href="/lectures/new">강의 등록</a>
             <a class="btn btn-lg btn-dark" href="/lectures">강의 목록</a>
         </p>
-        <p class="lead">전공 기능</p>
         <p>
             <a class="btn btn-lg btn-info" href="/majors/new">전공 등록</a>
             <a class="btn btn-lg btn-info" href="/majors">전공 목록</a>
         </p>
     </div>
+
+
     <div th:replace="fragments/footer :: footer" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {packages: ['corechart', 'line']});
+        google.charts.setOnLoadCallback(drawBasic);
+        function drawBasic() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Month');
+            data.addColumn('number', 'Usage');
+            data.addRows([
+                [new Date(2020, 4, 1), 57],
+                [new Date(2020, 4, 2), 27],
+                [new Date(2020, 4, 3), 51],
+                [new Date(2020, 4, 4), 47],
+                [new Date(2020, 4, 10), 37]
+            ]);
+            var options = {
+                hAxis: {
+                },
+                vAxis: {
+                    title: 'Usage'
+                },
+                legend: 'none',
+                scaleType: 'log',
+                width: 700,
+                height: 250
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
 </div> <!-- /container -->
