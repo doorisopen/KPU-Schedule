@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
-
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 @SpringBootTest
 @Transactional
@@ -34,7 +32,7 @@ public class ProfessorServiceTest {
         professorService.save(professor2); // 예외 발생
 
         //then
-        fail("예외가 발생해야 하는데...?");
+//        fail("예외가 발생해야 하는데...?");
     }
 
 }

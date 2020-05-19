@@ -52,7 +52,7 @@ public class ProfessorController {
         return "professors/professorList";
     }
 
-    @GetMapping("professors/{professorId}/edit")
+    @GetMapping("/professors/{professorId}/edit")
     public String updateProfessorForm(@PathVariable("professorId") Long professorId, Model model) {
         Optional<Professor> findProfessor = professorRepository.findById(professorId);
 
@@ -65,7 +65,7 @@ public class ProfessorController {
         return "professors/updateProfessorForm";
     }
 
-    @PostMapping("professors/{professorId}/edit")
+    @PostMapping("/professors/{professorId}/edit")
     public String updateProfessor(@PathVariable("professorId") Long professorId,
                                   @ModelAttribute("form") ProfessorForm form) {
         professorService.changeProfessorName(professorId, form.getProfessorName());

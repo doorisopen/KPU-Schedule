@@ -1,8 +1,13 @@
 package kpuapi.kpulecture;
 
+import kpuapi.kpulecture.api.dto.UsageResponseDto;
+import kpuapi.kpulecture.domain.Usage;
+import kpuapi.kpulecture.domain.UsageRepository;
 import kpuapi.kpulecture.domain.school.Lecture;
 import kpuapi.kpulecture.domain.school.Professor;
 import kpuapi.kpulecture.domain.school.ProfessorRepository;
+import kpuapi.kpulecture.domain.user.User;
+import kpuapi.kpulecture.domain.user.UserRepository;
 import kpuapi.kpulecture.scraping.CrawlingDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
@@ -17,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,9 +44,9 @@ public class initDb {
         List<CrawlingDto> result = lectureCrawling(pageNo, lectureGubun);
 
         for (CrawlingDto data : result) {
-            initService.saveData(data);
+            initService.saveLectureData(data);
         }
-
+        initService.initUsage();
     }
 
     /**
@@ -177,12 +183,13 @@ public class initDb {
         @PersistenceContext
         private final EntityManager em;
         private final ProfessorRepository professorRepository;
+        private final UsageRepository usageRepository;
 
         /**
          * Major 데이터 체크 -> Professor 데이터 체크 -> Lecture 등록
          */
         @Transactional
-        public void saveData(CrawlingDto crawlingDto) {
+        public void saveLectureData(CrawlingDto crawlingDto) {
             Lecture lecture = new Lecture();
 
 
@@ -208,6 +215,18 @@ public class initDb {
             lecture.setLectureRoom(crawlingDto.getLectureRoom());
 
             em.persist(lecture);
+        }
+
+        @Transactional
+        public void initUsage() {
+            usageRepository.save(Usage.builder()
+                    .date(LocalDate.of(2020, 05, 19))
+                    .used(10)
+                    .build());
+            usageRepository.save(Usage.builder()
+                    .date(LocalDate.now())
+                    .used(6)
+                    .build());
         }
     }
 

@@ -52,7 +52,7 @@ public class LectureController {
         return "lectures/lectureList";
     }
 
-    @GetMapping("lectures/{lectureId}/edit")
+    @GetMapping("/lectures/{lectureId}/edit")
     public String updateLectureForm(@PathVariable("lectureId") Long lectureId, Model model) {
         Optional<Lecture> lecture = lectureRepository.findById(lectureId);
         List<Professor> professors = professorRepository.findByProfessorName(lecture.get().getProfessor().getProfessorName());
@@ -72,7 +72,7 @@ public class LectureController {
         return "lectures/updateLectureForm";
     }
 
-    @PostMapping("lectures/{lectureId}/edit")
+    @PostMapping("/lectures/{lectureId}/edit")
     public String updateLecture(@PathVariable("lectureId") Long lectureId, @ModelAttribute("form") LectureForm form) {
 
         lectureService.updateLecture(lectureId, form);

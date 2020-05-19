@@ -27,6 +27,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
+    //security 추가
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
     //쿼리 로그 라이브러리 -> 개발 단계에서만 사용

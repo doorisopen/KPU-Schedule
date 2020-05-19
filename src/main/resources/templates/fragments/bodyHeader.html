@@ -4,5 +4,12 @@
     <ul class="nav nav-pills pull-right">
         <li><a href="/">API Management</a></li>
     </ul>
-    <a href="/"><h3 class="text-muted">API Management</h3></a>
+    <a href="/" style="display: inline-block"><h3 class="text-muted">API Management</h3></a>
+    <div th:if="${session['user'] != null}" style="display: inline-block; float: right">
+        Logged in as: <span id="user" th:text="${session.user.name}"></span>
+        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+    </div>
+    <div th:unless="${session['user'] != null}" style="display: inline-block; float: right">
+        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+    </div>
 </div>

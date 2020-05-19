@@ -42,7 +42,7 @@ public class MajorController {
         return "majors/majorList";
     }
 
-    @GetMapping("majors/{majorId}/edit")
+    @GetMapping("/majors/{majorId}/edit")
     public String updateMajorForm(@PathVariable("majorId") Long majorId, Model model) {
         Optional<Major> major = majorRepository.findById(majorId);
 
@@ -55,7 +55,7 @@ public class MajorController {
         return "majors/updateMajorForm";
     }
 
-    @PostMapping("majors/{majorId}/edit")
+    @PostMapping("/majors/{majorId}/edit")
     public String updateMajor(@PathVariable("majorId") Long majorId, @ModelAttribute("form") MajorForm form) {
         majorService.changeMajorName(majorId, form.getMajorName());
 

@@ -51,8 +51,9 @@
 * [x] API Usage Chart
   + [x] Data Binding
 * [ ] 소셜 로그인
-  + [ ] 구글
+  + [x] 구글
   + [ ] 네이버
+  + [ ] 테스트 케이스 오류 수정
 * [ ] 배포
   + [ ] Travis CI/CD
   + [ ] Nginx 무중단배포
