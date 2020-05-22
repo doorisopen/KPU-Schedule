@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class Usage {
     @Column(name = "usage_id")
     private Long id;
     private LocalDate date;
-    private int used;
+    private Integer used;
 
     @Builder
     public Usage(LocalDate date, int used) {

@@ -4,7 +4,7 @@ package kpuapi.kpulecture;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kpuapi.kpulecture.domain.school.Lecture;
 import kpuapi.kpulecture.domain.school.Professor;
-import kpuapi.kpulecture.domain.QLecture;
+import kpuapi.kpulecture.domain.school.QLecture;
 import kpuapi.kpulecture.domain.school.LectureQueryRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

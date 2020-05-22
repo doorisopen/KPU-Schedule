@@ -1,5 +1,6 @@
 package kpuapi.kpulecture.controller;
 
+import kpuapi.kpulecture.config.auth.LoginUser;
 import kpuapi.kpulecture.config.auth.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,7 @@ public class HomeController {
     private final HttpSession httpSession;
 
     @RequestMapping("/")
-    public String home(Model model) {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+    public String home(Model model, @LoginUser SessionUser user) {
         return "home";
     }
 }

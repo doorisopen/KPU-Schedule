@@ -44,11 +44,11 @@ class UsageRepositoryTest {
                 .date(now)
                 .build());
         //when
-        List<Usage> findUsage = usageRepository.findAll();
+        Usage findUsage = usageRepository.findTopByOrderByDateDesc();
 
         //then
-        assertThat(findUsage.get(0).getDate()).isEqualTo(now);
-        assertThat(findUsage.get(0).getUsed()).isEqualTo(0);
+        assertThat(findUsage.getDate()).isEqualTo(now);
+        assertThat(findUsage.getUsed()).isEqualTo(0);
     }
 
     @Test
@@ -112,7 +112,7 @@ class UsageRepositoryTest {
     @Test
     public void 중복_확인후_새로운사용량_등록한다() throws Exception {
         //given
-        LocalDate previousDate = LocalDate.of(2020,05,17);
+        LocalDate previousDate = LocalDate.of(2020,05,10);
         Usage preUsage = Usage.builder()
                 .date(previousDate)
                 .build();

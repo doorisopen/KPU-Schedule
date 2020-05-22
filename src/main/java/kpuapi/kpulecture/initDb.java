@@ -220,12 +220,20 @@ public class initDb {
         @Transactional
         public void initUsage() {
             usageRepository.save(Usage.builder()
-                    .date(LocalDate.of(2020, 05, 19))
+                    .date(LocalDate.of(2020, 05, 16))
+                    .used(25)
+                    .build());
+            usageRepository.save(Usage.builder()
+                    .date(LocalDate.of(2020, 05, 17))
                     .used(10)
                     .build());
             usageRepository.save(Usage.builder()
-                    .date(LocalDate.now())
-                    .used(6)
+                    .date(LocalDate.of(2020, 05, 18))
+                    .used(20)
+                    .build());
+            usageRepository.save(Usage.builder()
+                    .date(LocalDate.of(2020, 05, 19))
+                    .used(30)
                     .build());
         }
     }

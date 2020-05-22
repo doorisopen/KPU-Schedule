@@ -1,12 +1,17 @@
 package kpuapi.kpulecture.service.school;
 
 import kpuapi.kpulecture.api.dto.LecturesResponseDto;
+import kpuapi.kpulecture.api.dto.UsageResponseDto;
+import kpuapi.kpulecture.api.dto.UsageUseRequestDto;
 import kpuapi.kpulecture.controller.form.LectureForm;
+import kpuapi.kpulecture.domain.Usage;
 import kpuapi.kpulecture.domain.school.*;
+import kpuapi.kpulecture.service.UsageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +24,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
     private final LectureQueryRepository lectureQueryRepository;
     private final ProfessorRepository professorRepository;
+    private final UsageService usageService;
 
     @Transactional
     public void save(LectureForm form) {
@@ -43,13 +49,15 @@ public class LectureService {
         findLecture.get().change(form, findProfessor.get());
     }
 
-    public List<LecturesResponseDto> lecturesV1() {
+    public List<LecturesResponseDto> lecturesV1(UsageUseRequestDto requestDto) {
+        usageService.use(requestDto.toEntity());
         return lectureRepository.findLectureFetchJoin().stream()
                 .map(LecturesResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-    public List<LecturesResponseDto> lecturesV2() {
+    public List<LecturesResponseDto> lecturesV2(UsageUseRequestDto requestDto) {
+        usageService.use(requestDto.toEntity());
         return lectureQueryRepository.findLecturesWithProfessor().stream()
                 .map(LecturesResponseDto::new)
                 .collect(Collectors.toList());

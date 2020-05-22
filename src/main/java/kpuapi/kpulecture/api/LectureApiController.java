@@ -1,6 +1,7 @@
 package kpuapi.kpulecture.api;
 
 import kpuapi.kpulecture.api.dto.LecturesResponseDto;
+import kpuapi.kpulecture.api.dto.UsageUseRequestDto;
 import kpuapi.kpulecture.domain.school.Lecture;
 import kpuapi.kpulecture.domain.school.LectureQueryRepository;
 import kpuapi.kpulecture.domain.school.LectureRepository;
@@ -20,14 +21,14 @@ public class LectureApiController {
 
     //==JPQL==//
     @GetMapping("/api/v1/lectures")
-    public Result lecturesV1() {
-        return new Result(HttpStatus.OK, lectureService.lecturesV1());
+    public Result lecturesV1(UsageUseRequestDto requestDto) {
+        return new Result(HttpStatus.OK, lectureService.lecturesV1(requestDto));
     }
 
     //==Querydsl==//
     @GetMapping("/api/v2/lectures")
-    public Result lecturesV2() {
-        return new Result(HttpStatus.OK, lectureService.lecturesV2());
+    public Result lecturesV2(UsageUseRequestDto requestDto) {
+        return new Result(HttpStatus.OK, lectureService.lecturesV2(requestDto));
     }
 
 }

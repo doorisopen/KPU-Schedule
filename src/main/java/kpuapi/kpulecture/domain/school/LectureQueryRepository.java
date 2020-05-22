@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static kpuapi.kpulecture.domain.QLecture.lecture;
-import static kpuapi.kpulecture.domain.QProfessor.professor;
+import static kpuapi.kpulecture.domain.school.QProfessor.professor;
+import static kpuapi.kpulecture.domain.school.QLecture.lecture;
 
 @Repository
 public class LectureQueryRepository {

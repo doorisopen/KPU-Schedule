@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 public class UsageResponseDto {
     private LocalDate date;
-    private int used;
+    private Integer used;
 
     public UsageResponseDto(Usage usage) {
         this.date = usage.getDate();

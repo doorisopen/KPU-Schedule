@@ -1,4 +1,12 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: test
+            client-secret: test
+            scope: profile, email
   profiles:
     active: test # local:로컬서버, dev:개발서버, real:실제서버
   datasource:
