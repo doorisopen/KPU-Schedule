@@ -7,26 +7,7 @@ spring:
             client-id: test
             client-secret: test
             scope: profile, email
-  profiles:
-    active: test # local:로컬서버, dev:개발서버, real:실제서버
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/kpulecture;
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
-
-  jpa:
-    hibernate:
-      ddl-auto: create # create 는 애플리케이션 실행때마다 drop & create 한다 / none 은 drop 하지 않고 데이터가 남아있는다.
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-#        show_sql: true # System.out 에 의해서 출력
-#        default_batch_fetch_size: 100 # V3.1 DTO->Paging 처리, !!=이 옵션은 항시 활성화 추천=!!
-
 logging:
   level:
     org.hibernate.SQL: debug # 로거를 통해서 출력
-#    org.hibernate.type: trace # SQL 실행 파라미터 로그 남기기
+    org.hibernate.type: trace # SQL 실행 파라미터 로그 남기기
