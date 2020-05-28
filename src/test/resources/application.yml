@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active: test
+  jpa:
+    show-sql: true
   security:
     oauth2:
       client:
