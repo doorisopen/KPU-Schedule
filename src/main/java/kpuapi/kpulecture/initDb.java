@@ -34,7 +34,7 @@ public class initDb {
 
     private final InitService initService;
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
 
         String lectureGubun = "A";

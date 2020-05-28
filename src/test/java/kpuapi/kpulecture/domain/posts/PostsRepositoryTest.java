@@ -20,6 +20,11 @@ class PostsRepositoryTest {
     @Autowired
     PostsRepository postsRepository;
 
+    @After("clear")
+    public void tearDown() throws Exception {
+        postsRepository.deleteAll();
+    }
+
     @Test
     public void 게시글저장_불러오기() throws Exception {
         //given
