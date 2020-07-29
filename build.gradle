@@ -41,6 +41,7 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
+    testCompile 'org.springframework.security:spring-security-test'
 
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

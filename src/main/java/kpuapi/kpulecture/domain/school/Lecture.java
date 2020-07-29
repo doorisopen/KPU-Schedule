@@ -28,18 +28,11 @@ public class Lecture {
     @JoinColumn(name = "professor_id")
     private Professor professor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "major_id")
-    private Major major;
 
     //==연관관계 메서드==//
     public void setProfessor(Professor professor) {
         this.professor = professor;
         professor.getLectures().add(this);
-    }
-    public void setMajor(Major major) {
-        this.major = major;
-        major.getLectures().add(this);
     }
 
     //==생성 메서드==//

@@ -70,20 +70,16 @@ public class SchoolEntityBasicTest {
         professorRepository.save(professor);
 
         Lecture lecture = new Lecture("JPA 기본편", professor);
-        lecture.setMajor(major);
         lectureRepository.save(lecture);
 
         //when
         List<Lecture> findLecture = lectureRepository.findAll();
         String professorName = findLecture.get(0).getProfessor().getProfessorName();
-        String majorName = findLecture.get(0).getMajor().getMajorName();
 
         //then
         System.out.println("professorName = " + professorName);
-        System.out.println("majorName = " + majorName);
 
         assertThat(professorName).isEqualTo("홍길동");
-        assertThat(majorName).isEqualTo("컴퓨터공학과");
     }
 
 

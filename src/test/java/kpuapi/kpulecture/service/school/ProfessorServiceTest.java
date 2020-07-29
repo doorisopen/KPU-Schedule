@@ -22,7 +22,7 @@ public class ProfessorServiceTest {
     /**
      * 중복 등록 예외가 발생한다.
      * @throws Exception
-
+     */
     @Test
     public void 중복_등록_예외() throws Exception {
         //given
@@ -36,5 +36,5 @@ public class ProfessorServiceTest {
         //then
         fail("예외가 발생해야 하는데...?");
     }
-     */
+
 }
