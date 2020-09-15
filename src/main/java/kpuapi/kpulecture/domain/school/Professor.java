@@ -36,10 +36,12 @@ public class Professor {
         major.getProfessors().add(this);
     }
 
+    //==생성 메서드==//
     public Professor(String professorName) {
         this.professorName = professorName;
     }
 
+    //==비즈니스 로직==//
     public void changeProfessorName(String professorName) {
         this.setProfessorName(professorName);
     }

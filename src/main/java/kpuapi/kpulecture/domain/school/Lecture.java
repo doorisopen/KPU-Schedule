@@ -40,6 +40,14 @@ public class Lecture {
         this.lectureName = lectureName;
         setProfessor(professor);
     }
+    public Lecture(String lectureCode, String lectureName, String lectureSemester,
+                   String lectureDate, String lectureRoom) {
+        this.lectureCode = lectureCode;
+        this.lectureName = lectureName;
+        this.lectureSemester = lectureSemester;
+        this.lectureDate = lectureDate;
+        this.lectureRoom = lectureRoom;
+    }
 
     //==비즈니스 로직==//
     public void change(LectureForm form, Professor professor) {

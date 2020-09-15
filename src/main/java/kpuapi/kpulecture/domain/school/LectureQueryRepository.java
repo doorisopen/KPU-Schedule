@@ -21,8 +21,13 @@ public class LectureQueryRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    public List<Lecture> findLectureWithProfessor() {
+        return queryFactory.selectFrom(lecture)
+                .join(lecture.professor, professor)
+                .fetch();
+    }
 
-    public List<Lecture> findLecturesWithProfessor() {
+    public List<Lecture> findLecturesWithProfessor_fetchJoin() {
         return queryFactory.selectFrom(lecture)
                 .join(lecture.professor, professor).fetchJoin()
                 .fetch();

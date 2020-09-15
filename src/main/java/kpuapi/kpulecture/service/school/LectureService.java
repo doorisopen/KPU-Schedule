@@ -28,12 +28,12 @@ public class LectureService {
 
     @Transactional
     public void save(LectureForm form) {
-        Lecture lecture = new Lecture();
-        lecture.setLectureCode(form.getLectureCode());
-        lecture.setLectureName(form.getLectureName());
-        lecture.setLectureSemester(form.getLectureSemester());
-        lecture.setLectureDate(form.getLectureDate());
-        lecture.setLectureRoom(form.getLectureRoom());
+        Lecture lecture = new Lecture(form.getLectureCode(),
+                form.getLectureName(),
+                form.getLectureSemester(),
+                form.getLectureDate(),
+                form.getLectureRoom()
+                );
 
         //교수 등록
         Optional<Professor> findProfessor = professorRepository.findById(form.getProfessorId());
@@ -58,7 +58,14 @@ public class LectureService {
 
     public List<LecturesResponseDto> lecturesV2(UsageUseRequestDto requestDto) {
         usageService.use(requestDto.toEntity());
-        return lectureQueryRepository.findLecturesWithProfessor().stream()
+        return lectureQueryRepository.findLectureWithProfessor().stream()
+                .map(LecturesResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<LecturesResponseDto> lecturesV3(UsageUseRequestDto requestDto) {
+        usageService.use(requestDto.toEntity());
+        return lectureQueryRepository.findLecturesWithProfessor_fetchJoin().stream()
                 .map(LecturesResponseDto::new)
                 .collect(Collectors.toList());
     }

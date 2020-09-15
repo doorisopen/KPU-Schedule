@@ -31,4 +31,8 @@ public class LectureApiController {
         return new Result(HttpStatus.OK, lectureService.lecturesV2(requestDto));
     }
 
+    @GetMapping("/api/v3/lectures")
+    public Result lecturesV3(UsageUseRequestDto requestDto) {
+        return new Result(HttpStatus.OK, lectureService.lecturesV3(requestDto));
+    }
 }
